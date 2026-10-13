@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Site build test</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    text-align: center;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .emoji {
+    font-size: 6rem;
+    line-height: 1;
+    margin: 0 0 1rem 0;
+  }
+
+  .message {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  @media (min-width: 600px) {
+    .emoji {
+      font-size: 9rem;
+    }
+
+    .message {
+      font-size: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <p class="emoji" role="img" aria-label="Smiling face">😀</p>
+  <p class="message">Page is working</p>
+</body>
+</html>
