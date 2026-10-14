@@ -281,6 +281,150 @@
     document.body.appendChild(nav);
   }
 
+  /* ---------- Live banner ---------- */
+
+  const BANNER_WINDOW = 10 * MINUTE;
+  const DISMISS_KEY = "with.banner.dismissed" + (fakeNow ? "@" + nowParam : "");
+
+  function dismissedIds() {
+    try { return JSON.parse(sessionStorage.getItem(DISMISS_KEY)) || []; } catch (err) { return []; }
+  }
+
+  function rememberDismissed(id) {
+    try {
+      const ids = dismissedIds();
+      if (ids.indexOf(id) === -1) ids.push(id);
+      sessionStorage.setItem(DISMISS_KEY, JSON.stringify(ids));
+    } catch (err) { /* private mode: the banner just stays dismissed for this page */ }
+  }
+
+  // One banner at most: the soonest upcoming session wins, else the most recently started.
+  function pickBanner(data, t) {
+    let next = null;
+    let started = null;
+    data.sessions.forEach(function (s) {
+      const until = s.startAt - t;
+      if (until > 0 && until <= BANNER_WINDOW) {
+        if (!next || s.startAt < next.startAt) next = s;
+      } else if (until <= 0 && -until < BANNER_WINDOW) {
+        if (!started || s.startAt > started.startAt) started = s;
+      }
+    });
+    if (next) return { type: "next", session: next };
+    if (started) return { type: "now", session: started };
+    return null;
+  }
+
+  function mountBanner(data) {
+    const text = h("span", { "aria-live": "polite" });
+    const anchor = h("a", { class: "banner__link" }, text);
+    const close = h("button", { class: "banner__close", type: "button", "aria-label": "Dismiss" }, icon("close"));
+    const el = h("aside", { class: "banner", "aria-label": "Live update" }, anchor, close);
+    const closedHere = [];
+    let shown = null;
+    let current = null;
+
+    el.inert = true;
+    document.body.appendChild(el);
+
+    // Set on the root element so --deck-top, which is defined there, picks it up.
+    function measure() {
+      if (shown) document.documentElement.style.setProperty("--banner-space", (el.offsetHeight + 12) + "px");
+    }
+
+    function hide() {
+      shown = null;
+      el.inert = true;
+      el.classList.remove("is-in", "is-dragging");
+      el.style.removeProperty("--drag");
+      document.body.classList.remove("has-banner");
+      document.documentElement.style.removeProperty("--banner-space");
+    }
+
+    function show(pick, key) {
+      const s = pick.session;
+      const room = roomLabel(data, s.room);
+      const meta = [room, pick.type === "next" ? fmtTime(s.startAt) : ""].filter(Boolean).join(" · ");
+      el.className = "banner banner--" + pick.type + (shown ? " is-in" : "");
+      anchor.setAttribute("href", sessionLink(s));
+      text.replaceChildren(
+        h("span", { class: "banner__line" },
+          h("span", { class: "banner__tag" }, pick.type === "next" ? "Up next" : "Happening now"),
+          s.title));
+      if (meta) text.appendChild(h("span", { class: "banner__meta" }, meta));
+      shown = key;
+      current = s.id;
+      el.inert = false;
+      document.body.classList.add("has-banner");
+      measure();
+      requestAnimationFrame(function () {
+        el.classList.add("is-in");
+      });
+    }
+
+    function update(t) {
+      const pick = pickBanner(data, t);
+      const blocked = pick && (closedHere.indexOf(pick.session.id) !== -1 || dismissedIds().indexOf(pick.session.id) !== -1);
+      const key = pick && !blocked ? pick.type + ":" + pick.session.id : null;
+      if (key === shown) return;
+      if (key) show(pick, key);
+      else hide();
+    }
+
+    function dismiss() {
+      if (current) {
+        closedHere.push(current);
+        rememberDismissed(current);
+      }
+      hide();
+    }
+
+    close.addEventListener("click", dismiss);
+
+    // Swipe up to dismiss.
+    let startY = 0;
+    let drag = 0;
+    let swiped = false;
+
+    function move(e) {
+      drag = Math.min(0, e.clientY - startY);
+      if (drag < -6) {
+        swiped = true;
+        el.classList.add("is-dragging");
+        el.style.setProperty("--drag", drag + "px");
+      }
+    }
+
+    function release() {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", release);
+      window.removeEventListener("pointercancel", release);
+      el.classList.remove("is-dragging");
+      if (drag < -28) dismiss();
+      else el.style.removeProperty("--drag");
+    }
+
+    el.addEventListener("pointerdown", function (e) {
+      if (e.target.closest(".banner__close")) return;
+      startY = e.clientY;
+      drag = 0;
+      swiped = false;
+      window.addEventListener("pointermove", move);
+      window.addEventListener("pointerup", release);
+      window.addEventListener("pointercancel", release);
+    });
+
+    el.addEventListener("click", function (e) {
+      if (!swiped) return;
+      swiped = false;
+      e.preventDefault();
+      e.stopPropagation();
+    }, true);
+
+    window.addEventListener("resize", measure);
+    onTick(update);
+  }
+
   /* ---------- Boot ---------- */
 
   window.Site = {
@@ -312,4 +456,9 @@
   };
 
   renderNav();
+  // Layout changes only animate once the first paint has settled.
+  window.addEventListener("load", function () {
+    setTimeout(function () { document.documentElement.classList.add("is-settled"); }, 600);
+  });
+  schedule().then(mountBanner).catch(function (err) { console.error(err); });
 })();
