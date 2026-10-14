@@ -722,6 +722,146 @@ button.card:active { scale: .985; }
 
 .deck > .sess.is-now:last-child { padding-bottom: 30px; }
 
+/* ---------- Breakouts ---------- */
+
+.t-detail {
+  --stroke: 1.5px;
+  font-weight: 900;
+  font-size: clamp(32px, 9.4vw, 40px);
+  line-height: 1.04;
+  letter-spacing: .02em;
+  word-spacing: .06em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+.detail {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  z-index: 40;
+  width: min(100%, var(--col));
+  overflow: hidden;
+  background: var(--card-bg);
+  color: var(--card-fg);
+  isolation: isolate;
+  transform: translateX(-50%);
+}
+
+.detail[hidden] { display: none; }
+
+.detail::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--halftone);
+  background-size: 6px 6px;
+  background-position: 0 0, 3px 3px;
+  opacity: .11;
+  pointer-events: none;
+}
+
+.detail.card--sun::before { opacity: .07; }
+
+.detail__scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* One pixel taller than the screen so the page behind never scrolls instead. */
+.detail__inner {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100% + 1px);
+  padding: calc(var(--safe-t) + 14px + var(--banner-space)) 22px calc(var(--nav-space) + 22px);
+}
+
+.detail__back {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-left: -4px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.detail__back svg { width: 22px; height: 22px; }
+
+.detail.card--sun .detail__back {
+  background: var(--ink);
+  color: var(--sun);
+}
+
+.detail__tag { margin-top: 26px; }
+.detail__title { margin-top: 14px; }
+.detail__pills { margin-top: 18px; }
+
+.detail__summary {
+  margin-top: 22px;
+  padding: 20px 22px 22px;
+  border-radius: 24px;
+  background: var(--white);
+  color: var(--ink);
+}
+
+.detail__cta {
+  position: sticky;
+  bottom: calc(var(--nav-space) + 14px);
+  margin-top: auto;
+  padding-top: 22px;
+}
+
+.btn {
+  --stroke: .5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 64px;
+  padding: 10px 10px 10px 26px;
+  border-radius: 999px;
+  background: var(--sun);
+  color: var(--ink);
+  box-shadow: 0 12px 26px -12px rgba(30, 38, 32, .7);
+  font-weight: 900;
+  font-size: 17px;
+  line-height: 1.1;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: scale .25s var(--ease);
+}
+
+.btn:active { scale: .985; }
+
+.btn .arrow {
+  background: var(--ink);
+  color: var(--sun);
+}
+
+.detail.card--sun .btn {
+  background: var(--sky-deep);
+  color: var(--white);
+}
+
+.detail.card--sun .btn .arrow {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.speakers { margin-top: 10px; }
+
 /* ---------- Notices ---------- */
 
 .notice {
@@ -737,7 +877,7 @@ button.card:active { scale: .985; }
   .bg--poster .bg__drift { animation: none; }
   .card { position: relative; top: auto; transition: opacity .3s linear; }
   .js-reveal .reveal { transform: none; }
-  a.card:active, button.card:active { scale: none; }
+  a.card:active, button.card:active, .btn:active { scale: none; }
   .dot--pulse { animation: none; }
   .is-settled .page-head { transition: none; }
   .is-settled .card { transition: opacity .3s linear; }
