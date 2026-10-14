@@ -1,4 +1,20 @@
-/* WITH · Georgia Young Adult Conference. See BRAND.md and SITE-SPEC.md. */
+/* WITH · Georgia Young Adult Conference, version 2. See BRAND.md and SITE-SPEC.md. */
+
+/* Shown instantly while the Adobe font loads. Sized to match its width so the
+   layout barely moves when the real font swaps in. */
+@font-face {
+  font-family: "with-fallback";
+  font-weight: 900;
+  src: local("HelveticaNeue-Bold"), local("Helvetica Neue Bold"), local("Arial-BoldMT"), local("Arial Bold");
+  size-adjust: 96%;
+}
+
+@font-face {
+  font-family: "with-fallback";
+  font-weight: 600;
+  src: local("HelveticaNeue-Bold"), local("Helvetica Neue Bold"), local("Arial-BoldMT"), local("Arial Bold");
+  size-adjust: 89%;
+}
 
 :root {
   --white: #FFFFFF;
@@ -9,10 +25,12 @@
   --sun: #F3E3C3;
   --ink: #1E2620;
 
-  --font: "neue-haas-grotesk-display", "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --font: "neue-haas-grotesk-display", "with-fallback", "Inter Tight", "Helvetica Neue", Arial, sans-serif;
   --ease: cubic-bezier(.2, .8, .2, 1);
 
   --stroke: .55px;
+  /* Every stroke on the site is multiplied by this. 1 = version 1 weight. */
+  --stroke-scale: .75;
   --radius: 28px;
   --gutter: 12px;
   --col: 480px;
@@ -25,10 +43,6 @@
   --nav-gap: 12px;
   --nav-space: calc(var(--safe-b) + var(--nav-gap) + var(--nav-h));
 
-  /* The supplied photos already have halftone and grain baked in. Set this to 1
-     if they are ever replaced with clean photos. */
-  --photo-texture: 0;
-
   --banner-space: 0px;
   --deck-top: calc(var(--safe-t) + 12px + var(--banner-space));
   --deck-step: 10px;
@@ -36,7 +50,6 @@
   --halftone:
     radial-gradient(circle at center, var(--ink) 0, var(--ink) .9px, transparent 1.35px),
     radial-gradient(circle at center, var(--ink) 0, var(--ink) .9px, transparent 1.35px);
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .7 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -65,14 +78,27 @@ body {
 }
 
 /* The brand stroke: a ring of shadows in the text's own color. Every element
-   computes its own ring so a different --stroke or color always takes effect. */
+   computes its own ring so a different --stroke or color always takes effect.
+   Small text uses four shadows; at that size the ring looks identical and
+   paints in half the time. */
 body, body *, body *::before, body *::after {
-  --d: calc(var(--stroke) * .7071);
+  --s: calc(var(--stroke) * var(--stroke-scale));
   text-shadow:
-    var(--stroke) 0 0 currentColor,
-    calc(var(--stroke) * -1) 0 0 currentColor,
-    0 var(--stroke) 0 currentColor,
-    0 calc(var(--stroke) * -1) 0 currentColor,
+    var(--s) 0 0 currentColor,
+    calc(var(--s) * -1) 0 0 currentColor,
+    0 var(--s) 0 currentColor,
+    0 calc(var(--s) * -1) 0 currentColor;
+}
+
+/* Headline-size strokes keep the full eight-point ring so corners stay round. */
+.t-page, .t-card, .t-head, .t-detail,
+.count__num, .next__title, .happen__title, .sess__name {
+  --d: calc(var(--s) * .7071);
+  text-shadow:
+    var(--s) 0 0 currentColor,
+    calc(var(--s) * -1) 0 0 currentColor,
+    0 var(--s) 0 currentColor,
+    0 calc(var(--s) * -1) 0 currentColor,
     var(--d) var(--d) 0 currentColor,
     calc(var(--d) * -1) var(--d) 0 currentColor,
     var(--d) calc(var(--d) * -1) 0 currentColor,
@@ -151,6 +177,7 @@ img, svg { display: block; }
 
 /* ---------- Photo background ---------- */
 
+/* Fixed and on its own layer so it never repaints while the page scrolls. */
 .bg {
   position: fixed;
   top: 0;
@@ -162,22 +189,14 @@ img, svg { display: block; }
   overflow: hidden;
   pointer-events: none;
   background: var(--sky-deep);
+  contain: strict;
+  transform: translateZ(0);
 }
 
 .bg__drift {
   position: absolute;
   inset: 0;
   transform-origin: 50% 50%;
-}
-
-.bg--poster .bg__drift {
-  will-change: transform;
-  animation: drift 14s ease-in-out infinite alternate;
-}
-
-@keyframes drift {
-  from { transform: scale(1) translate3d(0, 0, 0); }
-  to { transform: scale(1.035) translate3d(0, -.5%, 0); }
 }
 
 .bg__fill {
@@ -188,8 +207,8 @@ img, svg { display: block; }
   object-fit: cover;
 }
 
-/* The poster has the lockup baked in, so it always fits the full width and is
-   never cropped at the sides. .bg__fill extends sky and grass behind it. */
+/* The photo always fits the full width so the WITH lockup is never cropped at
+   the sides. .bg__fill extends sky and grass behind it on tall screens. */
 .bg__art {
   position: absolute;
   left: 50%;
@@ -202,49 +221,16 @@ img, svg { display: block; }
   mask-image: linear-gradient(to bottom, transparent 0, #000 13%, #000 87%, transparent 100%);
 }
 
-@media (min-aspect-ratio: 4/3) {
-  .bg__art {
-    width: max(100%, 177.78vh);
-    width: max(100%, 177.78lvh);
-    aspect-ratio: 16 / 9;
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
+/* Home only: the WITH lockup over the photo. It fades out as the cards come up. */
+.bg__words {
+  -webkit-mask-image: none;
+  mask-image: none;
+  will-change: opacity;
 }
 
-/* Inner pages show only the sky above the lockup (top 39% of the poster). */
-.bg__sky {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 256%;
-  object-fit: cover;
-  object-position: 74% 0;
-}
-
-.bg__halftone,
-.bg__grain,
 .bg__shade {
   position: absolute;
   inset: 0;
-}
-
-.bg__halftone {
-  background-image: var(--halftone);
-  background-size: 6px 6px;
-  background-position: 0 0, 3px 3px;
-  opacity: calc(.2 * var(--photo-texture));
-  mix-blend-mode: multiply;
-}
-
-.bg__grain {
-  background-image: var(--grain);
-  background-size: 180px 180px;
-  opacity: calc(.14 * var(--photo-texture));
-}
-
-.bg--poster .bg__shade {
   background: linear-gradient(to bottom,
     rgba(47, 74, 90, .18) 0%,
     rgba(47, 74, 90, 0) 26%,
@@ -252,11 +238,27 @@ img, svg { display: block; }
     rgba(63, 82, 34, .42) 100%);
 }
 
-.bg--sky .bg__shade {
-  background: linear-gradient(to bottom,
-    rgba(47, 74, 90, .4) 0%,
-    rgba(47, 74, 90, .12) 40%,
-    rgba(47, 74, 90, .4) 100%);
+/* Home intro: the poster fades in once its images have loaded. */
+.bg--intro .bg__drift {
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: drift 14s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+.bg--intro.is-ready .bg__drift {
+  opacity: 1;
+  transition: opacity .7s ease-out;
+}
+
+.bg--intro.is-instant .bg__drift { transition: none; }
+
+/* The slow drift only runs while the hero is on screen. */
+.bg--intro.is-top .bg__drift { animation-play-state: running; }
+
+@keyframes drift {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to { transform: scale(1.035) translate3d(0, -.5%, 0); }
 }
 
 /* ---------- Layout ---------- */
@@ -603,6 +605,10 @@ button.card:active { scale: .985; }
 
 /* ---------- Home: live card ---------- */
 
+.card.is-loading { min-height: 300px; }
+.card__sub--two { min-height: 3em; }
+
+
 .count {
   display: flex;
   gap: 10px;
@@ -923,7 +929,7 @@ button.card:active { scale: .985; }
 .map__canvas .room.is-live path { fill: var(--field); }
 .map__canvas .room.is-live {
   opacity: .7;
-  animation: room-soft 2.6s ease-in-out infinite;
+  animation: room-soft 2.6s steps(8, end) infinite;
 }
 
 .map__canvas .room.is-selected,
@@ -931,7 +937,7 @@ button.card:active { scale: .985; }
 .map__canvas .room.is-selected {
   opacity: 1;
   filter: drop-shadow(0 0 .7px var(--ink)) drop-shadow(0 0 .7px var(--ink));
-  animation: room-pulse 1.7s ease-in-out infinite;
+  animation: room-pulse 1.7s steps(8, end) infinite;
 }
 
 @keyframes room-pulse {
@@ -1096,7 +1102,8 @@ button.card:active { scale: .985; }
 /* ---------- Motion preferences ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .bg--poster .bg__drift { animation: none; }
+  .bg--intro .bg__drift { animation: none; }
+  .bg--intro.is-ready .bg__drift { transition: none; }
   .card { position: relative; top: auto; transition: opacity .3s linear; }
   .js-reveal .reveal { transform: none; }
   a.card:active, button.card:active, .btn:active { scale: none; }

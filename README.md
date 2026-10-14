@@ -4,33 +4,56 @@ Mobile-first event companion for the WITH conference (georgiayoungadults.com), d
 
 Read `BRAND.md` (look and feel) and `SITE-SPEC.md` (pages and behavior) before changing anything.
 
+## Versions
+
+The site is built in numbered versions. Each version has five pages and its own copy of the CSS and JS, and links only to its own pages.
+
+| Page | Version 1 (frozen) | Version 2 (current) |
+|---|---|---|
+| Home | `/home-version1/` | `/home-version2/` |
+| Schedule | `/schedule-version1/` | `/schedule-version2/` |
+| Breakouts | `/breakouts-version1/` | `/breakouts-version2/` |
+| Map | `/map-version1/` | `/map-version2/` |
+| Resources | `/resources-version1/` | `/resources-version2/` |
+
+Every new round of changes becomes the next version: copy the latest pages and `public/assets/vN/` folder to the next number, update the `ROUTES` object in that copy's `site.js`, and change things there. Published versions are never edited.
+
 ## Folder structure
 
 - `public/` — everything served by the Worker (the `assets.directory` in `wrangler.jsonc`). Plain HTML, CSS and JavaScript; no build step.
-  - `_redirects` — sends `/` (homepage only) to the registration page with a temporary 302 until launch. Must live in `public/` to take effect.
+  - `_redirects` — sends `/` (homepage only) to the registration page with a temporary 302 until launch.
+  - `_headers` — caching rules (see below).
   - `index.html` — placeholder that sits behind the redirect.
-  - `sitebuild1/` … `sitebuild5/` — the build-phase pages: Home, Schedule, Breakouts, Map, Resources. Each is a thin HTML shell marked `noindex`; the content is rendered from the data files.
-  - `data/schedule.json` — event, sessions, breakouts and rooms. Times use full ISO 8601 with the Eastern offset (e.g. `2026-10-17T10:00:00-04:00`).
-  - `data/resources.json` — the Resources page content.
-  - `assets/css/site.css` — the one shared stylesheet (brand colors, stroke, cards, nav, banner, page styles).
-  - `assets/js/site.js` — the one shared script: `ROUTES`, the clock, data loading, bottom nav and live banner.
-  - `assets/js/home.js`, `schedule.js`, `breakouts.js`, `map.js`, `resources.js` — one small script per page.
-  - `assets/hero-*.webp` / `.jpg`, `with-lockup-white.png`, `map.svg`, `favicon.svg` — images. Rooms in `map.svg` carry ids that match the room ids in `schedule.json`.
+  - `<page>-versionN/index.html` — thin HTML shells, all marked `noindex`. Content is rendered from the data files.
+  - `data/schedule.json` — event, sessions, breakouts and rooms. Times use full ISO 8601 with the Eastern offset (e.g. `2026-10-17T10:00:00-04:00`). Shared by every version.
+  - `data/resources.json` — the Resources page content. Shared by every version.
+  - `assets/vN/css/site.css` — that version's one shared stylesheet.
+  - `assets/vN/js/site.js` — that version's shared script: `ROUTES`, the clock, data loading, nav and live banner. Plus one small script per page.
+  - `assets/v2/img/` — phone-sized and full-size WebP copies of the background and lockup. `assets/v2/map.svg` — the map, with room ids matching `schedule.json`.
+  - `assets/*.jpg`, `*.png`, `hero-*.webp`, `map.svg` — the original artwork. Never edited; version 1 loads these directly.
 - `wrangler.jsonc` — Cloudflare Workers configuration.
 - `BRAND.md`, `SITE-SPEC.md` — the design and behavior specs.
-- `CLAUDE.md` / `AGENTS.md` — standing rules for AI coding agents (Claude Code and Codex): commit and push after every change, and leave `public/_redirects` alone.
+- `CLAUDE.md` / `AGENTS.md` — standing rules for AI coding agents (Claude Code and Codex).
 - `.claude/settings.json` — lets Claude Code run `git add`, `git commit` and `git push` without a permission prompt.
 
 ## Changing content
 
-Edit `public/data/schedule.json` or `public/data/resources.json` and push. Nothing about sessions, rooms or resources is hardcoded in the HTML.
+Edit `public/data/schedule.json` or `public/data/resources.json` and push. Nothing about sessions, rooms or resources is hardcoded in the HTML. Phones pick up the change within about a minute.
+
+## Caching
+
+`public/_headers` tells phones how long to keep files:
+
+- Version folders (`/assets/v1/`, `/assets/v2/`) are kept for a year, because they are frozen. If a file inside a version ever has to change, bump the `?v=` number on its URL in the pages that load it so phones fetch the new copy.
+- `/data/*.json` is kept for one minute.
+- Pages are re-checked on every visit.
 
 ## Testing as if it's conference day
 
 Add `?now=` to any page URL to fake the clock (read as Eastern time). It carries through every internal link.
 
 ```
-/sitebuild1/?now=2026-10-17T11:20
+/home-version2/?now=2026-10-17T11:20
 ```
 
 ## Local preview
@@ -41,11 +64,11 @@ Any static file server pointed at `public/` works, for example:
 python3 -m http.server 8787 --directory public
 ```
 
-The `/` redirect only happens on Cloudflare, not locally.
+The `/` redirect and the caching rules only apply on Cloudflare, not locally.
 
 ## Launch day
 
-1. Change the `ROUTES` object at the top of `public/assets/js/site.js` to the launch URLs.
-2. Move the `sitebuild*` folders to their launch paths (Home becomes `public/index.html`).
+1. Change the `ROUTES` object at the top of the current version's `site.js` to the launch URLs.
+2. Move that version's page folders to their launch paths (Home becomes `public/index.html`).
 3. Delete the redirect line in `public/_redirects`.
 4. Remove `<meta name="robots" content="noindex">` from each page.

@@ -4,7 +4,7 @@
 
   const S = window.Site;
   const h = S.h;
-  const MAP_URL = "/assets/map.svg";
+  const MAP_URL = "/assets/v2/map.svg?v=1";
   const MAX_SCALE = 5;
   const view = document.getElementById("map-view");
   const canvas = document.getElementById("map-canvas");

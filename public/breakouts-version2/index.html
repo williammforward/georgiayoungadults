@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2F4A5A">
+<title>Breakouts · WITH</title>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://use.typekit.net">
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="preconnect" href="https://p.typekit.net">
+<link rel="stylesheet" href="https://use.typekit.net/riq0xse.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://use.typekit.net/riq0xse.css"></noscript>
+<link rel="stylesheet" href="/assets/v2/css/site.css?v=1">
+<link rel="preload" as="image" type="image/webp" imagesrcset="/assets/v2/img/bg-750.webp 750w, /assets/v2/img/bg-1080.webp 1080w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" href="/data/schedule.json" as="fetch" crossorigin>
+<script src="/assets/v2/js/site.js?v=1" defer></script>
+<script src="/assets/v2/js/breakouts.js?v=1" defer></script>
+</head>
+<body data-page="breakouts">
+
+<div class="bg" aria-hidden="true">
+  <div class="bg__drift">
+    <picture>
+      <source type="image/webp" srcset="/assets/v2/img/bg-750.webp 750w, /assets/v2/img/bg-1080.webp 1080w" sizes="100vw">
+      <img class="bg__fill" src="/assets/v2/img/bg-fallback.jpg" alt="" decoding="async">
+    </picture>
+    <picture>
+      <source type="image/webp" srcset="/assets/v2/img/bg-750.webp 750w, /assets/v2/img/bg-1080.webp 1080w" sizes="100vw">
+      <img class="bg__art" id="bg-photo" src="/assets/v2/img/bg-fallback.jpg" alt="" decoding="async">
+    </picture>
+  </div>
+  <div class="bg__shade"></div>
+</div>
+
+<main class="page" id="main">
+  <header class="page-head">
+    <h1 class="t-page">Breakouts</h1>
+    <div class="page-head__pills" id="head-pills"></div>
+  </header>
+  <div class="deck" id="deck"></div>
+</main>
+
+<section class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="detail-title" hidden>
+  <div class="detail__scroll">
+    <div class="detail__inner"></div>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Main">
+  <a class="nav__item" data-route="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 11.2 12 4l8 7.2V19a1.5 1.5 0 0 1-1.5 1.5h-3.8v-5.6H9.3v5.6H5.5A1.5 1.5 0 0 1 4 19z"/></svg><span>Home</span></a>
+  <a class="nav__item" data-route="schedule" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.8" y="5.2" width="16.4" height="15" rx="3"/><path d="M3.8 10h16.4M8.2 3.2v3.6M15.8 3.2v3.6"/></svg><span>Schedule</span></a>
+  <a class="nav__item" data-route="map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s6.6-5.6 6.6-10.8A6.6 6.6 0 0 0 5.4 10.2C5.4 15.4 12 21 12 21z"/><circle cx="12" cy="10.2" r="2.4"/></svg><span>Map</span></a>
+  <a class="nav__item" data-route="resources"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 5.2A1.7 1.7 0 0 1 6.7 3.5H19v14.2H6.9A1.9 1.9 0 0 0 5 19.6z"/><path d="M5 19.6a1.9 1.9 0 0 0 1.9 1.9H19v-3.8M9 8.2h6"/></svg><span>Resources</span></a>
+</nav>
+
+</body>
+</html>

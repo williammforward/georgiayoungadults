@@ -1,0 +1,38 @@
+# Caching rules. Pages themselves are always re-checked, so fixes show up at once.
+
+# Version folders are frozen, so phones can keep these files for a year.
+# To change a file inside a version, bump its ?v= number in the page that loads it.
+/assets/v1/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/v2/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Original artwork (used by version 1). These files are never edited in place.
+/assets/hero-vertical.webp
+  Cache-Control: public, max-age=2592000
+
+/assets/hero-vertical.jpg
+  Cache-Control: public, max-age=2592000
+
+/assets/hero-wide.webp
+  Cache-Control: public, max-age=2592000
+
+/assets/hero-wide.jpg
+  Cache-Control: public, max-age=2592000
+
+/assets/vertical-blank-background.jpg
+  Cache-Control: public, max-age=2592000
+
+/assets/with-lockup-white.png
+  Cache-Control: public, max-age=2592000
+
+/assets/map.svg
+  Cache-Control: public, max-age=2592000
+
+/assets/favicon.svg
+  Cache-Control: public, max-age=2592000
+
+# Schedule and resources: short cache so edits reach phones within a minute.
+/data/*
+  Cache-Control: public, max-age=60

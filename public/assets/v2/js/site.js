@@ -1,9 +1,9 @@
-/* Shared script for every page. See SITE-SPEC.md. */
+/* Shared script for every version 2 page. See SITE-SPEC.md. */
 (function () {
   "use strict";
 
-  // The only place page URLs live. On launch day, change this object.
-  const ROUTES = { home: "/sitebuild1/", schedule: "/sitebuild2/", breakouts: "/sitebuild3/", map: "/sitebuild4/", resources: "/sitebuild5/" };
+  // Version 2. The only place page URLs live for this version.
+  const ROUTES = { home: "/home-version2/", schedule: "/schedule-version2/", breakouts: "/breakouts-version2/", map: "/map-version2/", resources: "/resources-version2/" };
 
   const DATA = { schedule: "/data/schedule.json", resources: "/data/resources.json" };
   const TZ = "America/New_York";
@@ -121,15 +121,9 @@
   }
 
   const ICONS = {
-    home: '<path d="M4 11.2 12 4l8 7.2V19a1.5 1.5 0 0 1-1.5 1.5h-3.8v-5.6H9.3v5.6H5.5A1.5 1.5 0 0 1 4 19z"/>',
-    schedule: '<rect x="3.8" y="5.2" width="16.4" height="15" rx="3"/><path d="M3.8 10h16.4M8.2 3.2v3.6M15.8 3.2v3.6"/>',
-    map: '<path d="M12 21s6.6-5.6 6.6-10.8A6.6 6.6 0 0 0 5.4 10.2C5.4 15.4 12 21 12 21z"/><circle cx="12" cy="10.2" r="2.4"/>',
-    resources: '<path d="M5 5.2A1.7 1.7 0 0 1 6.7 3.5H19v14.2H6.9A1.9 1.9 0 0 0 5 19.6z"/><path d="M5 19.6a1.9 1.9 0 0 0 1.9 1.9H19v-3.8M9 8.2h6"/>',
     arrow: '<path d="M7 17 17 7M8.5 7H17v8.5"/>',
     back: '<path d="M19 12H5M11 6l-6 6 6 6"/>',
-    close: '<path d="M6 6l12 12M18 6 6 18"/>',
-    plus: '<path d="M12 5v14M5 12h14"/>',
-    minus: '<path d="M5 12h14"/>'
+    close: '<path d="M6 6l12 12M18 6 6 18"/>'
   };
 
   function icon(name) {
@@ -176,8 +170,9 @@
 
   /* ---------- Data ---------- */
 
+  // Plain fetch so it reuses the <link rel="preload"> in each page's head.
   function getJSON(url) {
-    return fetch(url, { cache: "no-cache" }).then(function (res) {
+    return fetch(url).then(function (res) {
       if (!res.ok) throw new Error(url + " returned " + res.status);
       return res.json();
     });
@@ -260,25 +255,15 @@
 
   /* ---------- Bottom nav ---------- */
 
-  const NAV = [
-    { route: "home", label: "Home", icon: "home" },
-    { route: "schedule", label: "Schedule", icon: "schedule" },
-    { route: "map", label: "Map", icon: "map" },
-    { route: "resources", label: "Resources", icon: "resources" }
-  ];
-
-  function renderNav() {
+  // The nav is static HTML so it paints immediately; links come from ROUTES.
+  function hydrateNav() {
     const page = document.body.getAttribute("data-page");
     const active = page === "breakouts" ? "schedule" : page;
-    const nav = h("nav", { class: "nav", "aria-label": "Main" },
-      NAV.map(function (item) {
-        return h("a", {
-          class: "nav__item",
-          href: link(item.route),
-          "aria-current": item.route === active ? "page" : null
-        }, icon(item.icon), h("span", null, item.label));
-      }));
-    document.body.appendChild(nav);
+    document.querySelectorAll("[data-route]").forEach(function (a) {
+      const route = a.getAttribute("data-route");
+      a.setAttribute("href", link(route));
+      if (route === active) a.setAttribute("aria-current", "page");
+    });
   }
 
   /* ---------- Live banner ---------- */
@@ -455,7 +440,7 @@
     MINUTE: MINUTE
   };
 
-  renderNav();
+  hydrateNav();
   // Layout changes only animate once the first paint has settled.
   window.addEventListener("load", function () {
     setTimeout(function () { document.documentElement.classList.add("is-settled"); }, 600);
