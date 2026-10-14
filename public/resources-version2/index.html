@@ -13,7 +13,8 @@
 <link rel="stylesheet" href="https://use.typekit.net/riq0xse.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://use.typekit.net/riq0xse.css"></noscript>
 <link rel="stylesheet" href="/assets/v2/css/site.css?v=1">
-<link rel="preload" as="image" type="image/webp" imagesrcset="/assets/v2/img/bg-750.webp 750w, /assets/v2/img/bg-1080.webp 1080w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" media="(max-width: 700px)" imagesrcset="/assets/v2/img/bg-750.webp 750w, /assets/v2/img/bg-900.webp 900w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" media="(min-width: 701px)" href="/assets/v2/img/bg-1080.webp" fetchpriority="high">
 <link rel="preload" href="/data/schedule.json" as="fetch" crossorigin>
 <link rel="preload" href="/data/resources.json" as="fetch" crossorigin>
 <script src="/assets/v2/js/site.js?v=1" defer></script>
@@ -24,11 +25,13 @@
 <div class="bg" aria-hidden="true">
   <div class="bg__drift">
     <picture>
-      <source type="image/webp" srcset="/assets/v2/img/bg-750.webp 750w, /assets/v2/img/bg-1080.webp 1080w" sizes="100vw">
+      <source media="(max-width: 700px)" type="image/webp" srcset="/assets/v2/img/bg-750.webp 750w, /assets/v2/img/bg-900.webp 900w" sizes="100vw">
+      <source type="image/webp" srcset="/assets/v2/img/bg-1080.webp">
       <img class="bg__fill" src="/assets/v2/img/bg-fallback.jpg" alt="" decoding="async">
     </picture>
     <picture>
-      <source type="image/webp" srcset="/assets/v2/img/bg-750.webp 750w, /assets/v2/img/bg-1080.webp 1080w" sizes="100vw">
+      <source media="(max-width: 700px)" type="image/webp" srcset="/assets/v2/img/bg-750.webp 750w, /assets/v2/img/bg-900.webp 900w" sizes="100vw">
+      <source type="image/webp" srcset="/assets/v2/img/bg-1080.webp">
       <img class="bg__art" id="bg-photo" src="/assets/v2/img/bg-fallback.jpg" alt="" decoding="async">
     </picture>
   </div>
