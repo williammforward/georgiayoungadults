@@ -138,6 +138,9 @@ Use one reusable CSS utility that makes a rounded stroke from a ring of `text-sh
 - For very large headlines (60px+), if the shadow ring looks lumpy, render that headline as inline SVG `<text>` with `stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" paint-order="stroke fill"`. SVG strokes are centered, so width 4 = 2px outside the letter.
 - The **"WITH" logo/lockup** always uses the exported image file, never live text.
 
+### Splash screen exception
+Splash screen exception: the word 'with' on the splash screen uses Ivyora Text, 700 italic, all lowercase, with the same rounded same-color stroke as all other text. This is the only place this font is used.
+
 ### Type scale (mobile first)
 - Hero/page titles: 900, uppercase, letter-spacing about -0.02em, 40–56px on phones, `--stroke: 2px`
 - Section headers / session names: 900, uppercase, 22–28px, `--stroke: 1.5px`
