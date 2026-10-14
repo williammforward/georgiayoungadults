@@ -1,4 +1,4 @@
-/* Home: splash hand-off, live card and the four category cards. */
+/* Home: live card and the four category cards, opened resting on the card deck. */
 (function () {
   "use strict";
 
@@ -103,8 +103,6 @@
   /* ---------- Poster and scroll position ---------- */
 
   const root = document.documentElement;
-  const splash = window.WITH_SPLASH || { shown: false, start: 0, leave: function () {} };
-  const SPLASH_MIN = 800;
   let settleTarget = 0;
   let touched = false;
   let ticking = false;
@@ -153,32 +151,6 @@
     window.addEventListener(type, function () { touched = true; }, { passive: true, capture: true });
   });
 
-  function decoded(img) {
-    if (!img) return Promise.resolve();
-    if (img.decode) return img.decode().catch(function () {});
-    return new Promise(function (resolve) {
-      if (img.complete) resolve();
-      else img.addEventListener("load", resolve, { once: true });
-    });
-  }
-
-  // Resolves once the Adobe stylesheet has arrived and both weights are usable.
-  function fontsLoaded() {
-    const link = document.getElementById("font-css");
-    const sheet = new Promise(function (resolve) {
-      if (!link || (link.sheet && link.media !== "print")) { resolve(); return; }
-      link.addEventListener("load", function () { resolve(); }, { once: true });
-      link.addEventListener("error", function () { resolve(); }, { once: true });
-    });
-    return sheet.then(function () {
-      if (!document.fonts || !document.fonts.load) return null;
-      return Promise.all([
-        document.fonts.load('900 40px "neue-haas-grotesk-display"'),
-        document.fonts.load('600 16px "neue-haas-grotesk-display"')
-      ]);
-    }).catch(function () {});
-  }
-
   function wait(ms) {
     return new Promise(function (resolve) { setTimeout(resolve, ms); });
   }
@@ -221,14 +193,7 @@
     root.classList.add("is-ready");
   });
 
-  // First visit: the splash lifts when the page, photo and fonts are ready,
-  // but never before it has been up long enough to register.
-  if (splash.shown) {
-    Promise.all([pageShown, dataShown.catch(function () {}), decoded(photo), fontsLoaded()]).then(function () {
-      if (!touched) position();
-      setTimeout(splash.leave, Math.max(0, SPLASH_MIN - (performance.now() - splash.start)));
-    });
-  }
+  S.pageReady(Promise.all([pageShown, dataShown.catch(function () {})]));
 
   /* ---------- Live card ---------- */
 

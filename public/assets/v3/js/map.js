@@ -363,13 +363,16 @@
     }));
     renderCard(S.now());
 
-    return fetch(MAP_URL).then(function (res) {
+    // The map measures its box, so it mounts once the stylesheet has applied.
+    return Promise.all([fetch(MAP_URL), S.cssReady]).then(function (all) {
+      const res = all[0];
       if (!res.ok) throw new Error(MAP_URL + " returned " + res.status);
       return res.text();
     }).then(function (text) {
       mountMap(text);
       const wanted = new URLSearchParams(location.search).get("room");
       if (wanted && data.rooms[wanted]) select(wanted, false);
+      S.pageReady();
 
       S.onTick(function (t) {
         const live = liveRooms(t);
@@ -384,5 +387,6 @@
     canvas.replaceChildren();
     view.appendChild(h("div", { class: "map__status" },
       h("p", { class: "t-body" }, "The map didn’t load. Check your connection and pull down to refresh.")));
+    S.pageReady();
   });
 })();

@@ -8,7 +8,7 @@ Read `BRAND.md` (look and feel) and `SITE-SPEC.md` (pages and behavior) before c
 
 The site is built in numbered versions. Each version has five pages and its own copy of the CSS and JS, and links only to its own pages.
 
-| Page | Version 1 (frozen) | Version 2 (frozen) | Version 3 (current) |
+| Page | Version 1 (frozen) | Version 2 (frozen) | Version 3 (final, edited in place) |
 |---|---|---|---|
 | Home | `/home-version1/` | `/home-version2/` | `/home-version3/` |
 | Schedule | `/schedule-version1/` | `/schedule-version2/` | `/schedule-version3/` |
@@ -16,7 +16,7 @@ The site is built in numbered versions. Each version has five pages and its own 
 | Map | `/map-version1/` | `/map-version2/` | `/map-version3/` |
 | Resources | `/resources-version1/` | `/resources-version2/` | `/resources-version3/` |
 
-Every new round of changes becomes the next version: copy the latest pages and `public/assets/vN/` folder to the next number, update the `ROUTES` object in that copy's `site.js`, and change things there. Published versions are never edited.
+Version 3 is the final working version: edit it in place, and never create new versions or archives unless explicitly asked. Versions 1 and 2 stay live and untouched.
 
 ## Folder structure
 
@@ -36,9 +36,11 @@ Every new round of changes becomes the next version: copy the latest pages and `
 - `CLAUDE.md` / `AGENTS.md` — standing rules for AI coding agents (Claude Code and Codex).
 - `.claude/settings.json` — lets Claude Code run `git add`, `git commit` and `git push` without a permission prompt.
 
-## Homepage splash (version 3)
+## Splash (version 3)
 
-The homepage shows a full-screen splash on the first homepage load of a visit. Its CSS and a tiny placeholder of the photo and lockup are inline in `home-version3/index.html`, so it paints before anything else loads; the rest of the page loads behind it. It stays up at least 0.8 seconds and lifts by 2.5 seconds at the latest.
+The first page opened in a browser tab, whichever page it is, plays a cinematic title card ("WELCOME TO THE / with / GEORGIA YOUNG ADULT CONFERENCE") and then cross-dissolves into the page. Moving between pages or using the back button doesn't replay it; a new tab does (remembered in `sessionStorage`). Tapping skips it with a faster dissolve.
+
+Its markup, CSS and timing script are inline at the top of each version 3 page so it paints before anything else loads. The page loads underneath in parallel; each page script calls `Site.pageReady()` when its content is in place. The title holds until about 6 seconds and dissolves once the page is ready, never later than 8 seconds.
 
 ## Changing content
 
@@ -48,7 +50,8 @@ Edit `public/data/schedule.json` or `public/data/resources.json` and push. Nothi
 
 `public/_headers` tells phones how long to keep files:
 
-- Version folders (`/assets/v1/`, `/assets/v2/`, `/assets/v3/`) are kept for a year, because they are frozen. Add a rule for each new version folder. If a file inside a version ever has to change, bump the `?v=` number on its URL in the pages that load it so phones fetch the new copy.
+- Versions 1 and 2 (`/assets/v1/`, `/assets/v2/`) are frozen and kept for a year.
+- Version 3's CSS and JS are re-checked every 5 minutes. After changing one, bump the `?v=` number on its URL in all five version 3 pages so phones pick it up at once. Its images are kept for a year (new image, new file name).
 - `/data/*.json` is kept for one minute.
 - Pages are re-checked on every visit.
 

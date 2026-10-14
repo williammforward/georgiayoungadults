@@ -410,10 +410,41 @@
     onTick(update);
   }
 
+  /* ---------- Splash hand-off ---------- */
+
+  const splash = window.WITH_SPLASH || { active: false, ready: function () {} };
+
+  // Under the splash, cards already on screen are placed without the deal-in
+  // animation so nothing moves once the splash dissolves.
+  function placeOnScreenCards() {
+    document.querySelectorAll(".deck").forEach(function (deck) {
+      deck.classList.add("no-anim");
+      deck.querySelectorAll(".reveal").forEach(function (card) {
+        const r = card.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) card.classList.add("is-in");
+      });
+      void deck.offsetHeight;
+      requestAnimationFrame(function () { deck.classList.remove("no-anim"); });
+    });
+  }
+
+  // Each page calls this once its content is rendered and in its final position.
+  // The splash waits for it (up to its own time limit) before dissolving.
+  function pageReady(work) {
+    return cssReady.then(function () { return work; }).catch(function (err) { console.error(err); }).then(function () {
+      const photo = document.getElementById("bg-photo");
+      const decoded = photo && photo.decode ? photo.decode().catch(function () {}) : null;
+      return Promise.race([decoded, new Promise(function (resolve) { setTimeout(resolve, 2500); })]);
+    }).then(function () {
+      if (splash.active) placeOnScreenCards();
+      splash.ready();
+    });
+  }
+
   /* ---------- Boot ---------- */
 
-  // The homepage loads its stylesheet without blocking the splash, so anything
-  // that measures layout waits for it. On other pages this resolves at once.
+  // Pages load their stylesheet without blocking the splash, so anything that
+  // measures layout waits for it.
   const cssReady = new Promise(function (resolve) {
     const sheet = document.getElementById("site-css");
     if (!sheet || (sheet.sheet && sheet.media !== "print")) { resolve(); return; }
@@ -424,6 +455,8 @@
   window.Site = {
     ROUTES: ROUTES,
     cssReady: cssReady,
+    splashActive: splash.active,
+    pageReady: pageReady,
     now: now,
     onTick: onTick,
     link: link,
@@ -455,5 +488,9 @@
   window.addEventListener("load", function () {
     setTimeout(function () { document.documentElement.classList.add("is-settled"); }, 600);
   });
+  // Home reveals itself once it has scrolled to the cards; other pages as soon as they are styled.
+  if (document.body.getAttribute("data-page") !== "home") {
+    cssReady.then(function () { document.documentElement.classList.add("is-ready"); });
+  }
   cssReady.then(schedule).then(mountBanner).catch(function (err) { console.error(err); });
 })();

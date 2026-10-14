@@ -97,10 +97,19 @@
 
     const fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
     const timeout = new Promise(function (resolve) { setTimeout(resolve, 900); });
-    Promise.race([fontsReady, timeout]).then(function () {
-      settle(true);
-      setTimeout(function () { settle(false); }, 900);
-    });
+
+    if (S.splashActive) {
+      // Under the splash the page jumps straight to its final position.
+      S.pageReady(S.cssReady.then(function () {
+        settle(false);
+        return Promise.race([fontsReady, timeout]);
+      }).then(function () { settle(false); }));
+    } else {
+      Promise.race([fontsReady, timeout]).then(function () {
+        settle(true);
+        setTimeout(function () { settle(false); }, 900);
+      });
+    }
 
     window.addEventListener("hashchange", function () {
       const target = hashTarget();
@@ -109,5 +118,6 @@
   }).catch(function (err) {
     console.error(err);
     S.loadError(deck);
+    S.pageReady();
   });
 })();

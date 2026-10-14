@@ -198,8 +198,10 @@
     deck.replaceChildren.apply(deck, list.map(listCard));
     S.reveal(deck);
     sync(false);
+    S.pageReady();
   }).catch(function (err) {
     console.error(err);
     S.loadError(deck);
+    S.pageReady();
   });
 })();

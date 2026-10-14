@@ -33,8 +33,10 @@
     cards.forEach(function (card, i) { card.style.setProperty("--i", i); });
     deck.replaceChildren.apply(deck, cards);
     S.reveal(deck);
+    S.pageReady();
   }).catch(function (err) {
     console.error(err);
     S.loadError(deck);
+    S.pageReady();
   });
 })();

@@ -7,70 +7,118 @@
 <meta name="theme-color" content="#2F4A5A">
 <title>WITH · Georgia Young Adult Conference</title>
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<!-- Critical CSS: the splash paints from this alone, before anything else loads. -->
+<!-- Critical CSS: the splash paints from this alone; the page waits for its own stylesheet. -->
 <style>
+:root{--sp-e:cubic-bezier(.22,.61,.36,1)}
 html{background:#2F4A5A}
 body{margin:0}
-.splash,.bg{position:fixed;top:0;left:0;width:100%;height:100vh;height:100lvh;overflow:hidden}
-.splash{z-index:100;background:url("data:image/webp;base64,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") 50% 50%/100% auto no-repeat,url("data:image/webp;base64,UklGRggBAABXRUJQVlA4IPwAAABQCQCdASokAEAAPt1kqVCopSOiqBqpyRAbiUAYg37gtQ9QXDXrCp2airfXFN0d7Wv3m4cmYZ/9GGCk429LtWvHZKG6yhr8AQVvtTXpR0uGmyg1QAD+7o54gao6ERaAMpHU+fKvXfuzV3aGqooW6jwm8dLFiBDG5WWyZnHAHiyotjXH2aWs9jq6D/wvta6PHJJwJyocdtpYnq9a/hI5dkTdQzAW+XdZqqku24LiLc+kMlAs8n78aSz1oEnstB5MRMvnYnuM9Adw8fSngCKNyHxH+0YjukRxW1R2EO7d4X4NEtrVTN5W5H5LUcFBy4ESdTE6tLqXJA43h+3jQAA=") 50% 50%/cover no-repeat,#2F4A5A;transition:opacity .4s ease-out}
-.bg{z-index:-1;background:#2F4A5A;pointer-events:none}
-.bg__drift{position:absolute;top:0;right:0;bottom:0;left:0}
-.splash img,.bg img{position:absolute;display:block}
-.splash img{opacity:0;transition:opacity .25s ease-out}
-.splash img.is-in{opacity:1}
-.splash__fill,.bg__fill{top:0;left:0;width:100%;height:100%;object-fit:cover}
-.splash__art,.bg__art{left:50%;top:50%;width:100%;aspect-ratio:9/16;transform:translate(-50%,-50%);object-fit:cover}
-.splash__photo,#bg-photo{-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 13%,#000 87%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 13%,#000 87%,transparent 100%)}
-.splash::after,.bg__shade{content:"";position:absolute;top:0;right:0;bottom:0;left:0;background:linear-gradient(to bottom,rgba(47,74,90,.18) 0%,rgba(47,74,90,0) 26%,rgba(63,82,34,0) 68%,rgba(63,82,34,.42) 100%)}
-.splash.is-leaving{opacity:0;pointer-events:none}
-.no-splash .splash{display:none}
-html:not(.is-ready) .bg__words,html:not(.is-ready) .page,html:not(.is-ready) .nav,html:not(.is-ready) .banner{visibility:hidden}
-@media (prefers-reduced-motion:reduce){.splash{transition-duration:.15s}.splash img{transition:none}}
+/* The page shows once its own stylesheet has loaded. */
+html:not(.is-ready) body>:not(.splash){visibility:hidden}
+/* ---- Splash (first page opened in a tab) ---- */
+.splash{display:none}
+html.splash-on{background:#060807}
+html.splash-on body>:not(.splash){opacity:0}
+html.splash-out body>:not(.splash){opacity:1;transition:opacity calc(var(--sp-out,1200ms)*.55) var(--sp-e)}
+html.splash-on .splash{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1000;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#060807;color:#fff;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+.splash__stage{position:absolute;top:-6%;right:-6%;bottom:-6%;left:-6%;animation:sp-in 1.5s var(--sp-e) both,sp-drift 10s var(--sp-e) both}
+.splash__photo{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;filter:saturate(.5)}
+.splash__shade,.splash__sun,.splash__field,.splash__screen,.splash__grain{position:absolute;top:0;right:0;bottom:0;left:0}
+.splash__shade{background:linear-gradient(180deg,rgba(14,22,28,.86),rgba(8,12,13,.82) 55%,rgba(8,11,8,.88))}
+.splash__sun{background:radial-gradient(circle at 80% 14%,rgba(243,227,195,.42),rgba(243,227,195,.14) 24%,rgba(243,227,195,.04) 42%,transparent 60%);transform-origin:80% 15%;animation:sp-bloom 2.2s .2s var(--sp-e) both}
+.splash__field{background:radial-gradient(ellipse 110% 34% at 50% 106%,rgba(110,134,54,.5),rgba(110,134,54,.14) 55%,transparent 80%)}
+.splash__screen{background-image:radial-gradient(circle at center,#000 0,#000 .9px,transparent 1.35px),radial-gradient(circle at center,#000 0,#000 .9px,transparent 1.35px);background-size:6px 6px;background-position:0 0,3px 3px;--o:.7;opacity:.7;animation:sp-in 1.5s var(--sp-e) both}
+.splash__grain{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .7 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px 180px;--o:.12;opacity:.12;animation:sp-in 1.5s var(--sp-e) both}
+.splash__title{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;font-family:"neue-haas-grotesk-display","with-fallback","Helvetica Neue",Arial,sans-serif;color:#fff}
+.splash__title p{margin:0;white-space:nowrap;--s:.42px;text-shadow:var(--s) 0 0 currentColor,calc(var(--s)*-1) 0 0 currentColor,0 var(--s) 0 currentColor,0 calc(var(--s)*-1) 0 currentColor}
+.splash__welcome{font-weight:600;font-size:clamp(13px,3.6vw,15px);line-height:1.2;letter-spacing:.3em;padding-left:.3em;text-transform:uppercase;opacity:0}
+.splash__word{position:relative;margin:.12em 0 .14em}
+.splash__glow{position:absolute;left:50%;top:54%;width:130%;height:125%;background:radial-gradient(closest-side,rgba(243,227,195,.5),rgba(243,227,195,.16) 52%,transparent);opacity:0;transform:translate(-50%,-50%)}
+.splash__title .splash__with{position:relative;font-family:"ivyora-text",Georgia,serif;font-weight:700;font-style:italic;font-size:min(32.5vw,156px);line-height:1.1;text-transform:lowercase;padding:0 .14em 0 .08em;--s:1.7px;--d:calc(var(--s)*.7071);text-shadow:var(--s) 0 0 currentColor,calc(var(--s)*-1) 0 0 currentColor,0 var(--s) 0 currentColor,0 calc(var(--s)*-1) 0 currentColor,var(--d) var(--d) 0 currentColor,calc(var(--d)*-1) var(--d) 0 currentColor,var(--d) calc(var(--d)*-1) 0 currentColor,calc(var(--d)*-1) calc(var(--d)*-1) 0 currentColor;-webkit-mask-image:linear-gradient(90deg,#000 0,#000 34%,transparent 42%);mask-image:linear-gradient(90deg,#000 0,#000 34%,transparent 42%);-webkit-mask-size:300% 100%;mask-size:300% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:100% 0;mask-position:100% 0}
+.splash__conf{font-weight:900;font-size:min(3.3vw,15.8px);line-height:1.2;letter-spacing:.02em;text-transform:uppercase;opacity:0;--s:.45px}
+.splash.is-text .splash__welcome{animation:sp-up 1s var(--sp-e) both}
+.splash.is-text .splash__with{animation:sp-wipe 1.6s .8s var(--sp-e) both}
+.splash.is-text .splash__glow{animation:sp-swell 1.8s 2s var(--sp-e) both}
+.splash.is-text .splash__conf{animation:sp-up 1s 2.2s var(--sp-e) both}
+html.splash-out .splash{animation:sp-out var(--sp-out,1200ms) var(--sp-e) both}
+@keyframes sp-in{from{opacity:0}to{opacity:var(--o,1)}}
+@keyframes sp-drift{from{transform:scale(1)}to{transform:scale(1.06)}}
+@keyframes sp-bloom{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+@keyframes sp-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes sp-wipe{from{-webkit-mask-position:100% 0;mask-position:100% 0}to{-webkit-mask-position:0 0;mask-position:0 0}}
+@keyframes sp-swell{0%{opacity:0;transform:translate(-50%,-50%) scale(.8)}55%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}100%{opacity:.7;transform:translate(-50%,-50%) scale(1)}}
+@keyframes sp-out{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.03)}}
+@keyframes sp-fade{from{opacity:1}to{opacity:0}}
+@media (prefers-reduced-motion:reduce){
+.splash__stage,.splash__screen,.splash__grain{animation:sp-in .4s ease both}
+.splash__sun{animation:none}
+.splash__title .splash__with{-webkit-mask-image:none;mask-image:none;opacity:0}
+.splash.is-text .splash__welcome,.splash.is-text .splash__with,.splash.is-text .splash__conf{animation:sp-in .3s ease both}
+.splash.is-text .splash__glow{animation:none;opacity:.7}
+html.splash-out .splash{animation:sp-fade var(--sp-out,600ms) ease both}
+html.splash-out body>:not(.splash){transition-timing-function:ease}
+}
 </style>
-<!-- Decides whether to show the splash and guarantees it lifts by 2.5 seconds. The last line reveals the page even if the main scripts fail. -->
-<script>
-(function(){var d=document.documentElement,K="with.v3.splash",seen=false,n=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];
-try{seen=!!sessionStorage.getItem(K)}catch(e){}
-var show=!(seen||(n&&n.type==="back_forward")),left=false;
-if(show){try{sessionStorage.setItem(K,"1")}catch(e){}}else{d.className+=" no-splash"}
-function leave(){if(left)return;left=true;var s=document.getElementById("splash");if(!s)return;s.className+=" is-leaving";setTimeout(function(){s.style.display="none"},450)}
-window.WITH_SPLASH={shown:show,start:performance.now(),leave:leave};
-if(show)setTimeout(leave,2500);
-window.addEventListener("load",function(){setTimeout(function(){if(!/\bis-ready\b/.test(d.className))d.className+=" is-ready"},1500)});
-})();
-</script>
 <link rel="preconnect" href="https://use.typekit.net">
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
 <link rel="preconnect" href="https://p.typekit.net">
+<link rel="stylesheet" id="font-css" href="https://use.typekit.net/riq0xse.css" media="print" onload="this.media='all'">
+<script>
+(function(){
+var d=document.documentElement,api={active:false,ready:function(){}};window.WITH_SPLASH=api;
+window.addEventListener("load",function(){setTimeout(function(){d.classList.add("is-ready")},1500)});
+var show=true;try{if(sessionStorage.getItem("with.v3.splash"))show=false;else sessionStorage.setItem("with.v3.splash","1")}catch(e){show=true}
+if(!show)return;
+api.active=true;d.classList.add("splash-on");
+var t0=performance.now(),reduce=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches),HOLD=reduce?2500:5000,textAt=0,isReady=false,gone=false;
+function now(){return performance.now()-t0}
+function leave(ms){if(gone)return;gone=true;d.style.setProperty("--sp-out",ms+"ms");d.classList.add("splash-out");
+setTimeout(function(){var s=document.getElementById("splash");if(s&&s.parentNode)s.parentNode.removeChild(s);d.classList.remove("splash-on","splash-out");d.style.removeProperty("--sp-out")},ms+80)}
+function settle(){if(textAt&&isReady&&now()>=textAt+HOLD)leave(reduce?600:1200)}
+function text(){if(textAt)return;textAt=now();var s=document.getElementById("splash");if(s)s.classList.add("is-text");setTimeout(settle,HOLD+20)}
+api.ready=function(){isReady=true;settle()};
+var L=document.getElementById("font-css");
+new Promise(function(r){if(!L||(L.sheet&&L.media!=="print"))r();else{L.addEventListener("load",r);L.addEventListener("error",r)}}).then(function(){
+if(!document.fonts||!document.fonts.load)return;
+return Promise.all(['italic 700 100px "ivyora-text"','600 16px "neue-haas-grotesk-display"','900 16px "neue-haas-grotesk-display"'].map(function(f){return document.fonts.load(f)}))
+}).catch(function(){}).then(function(){setTimeout(text,Math.max(0,(reduce?0:1000)-now()))});
+setTimeout(text,1500);
+setTimeout(function(){leave(reduce?600:1200)},Math.max(2500,8000-performance.now()));
+function skip(){if(!gone)leave(600)}
+document.addEventListener("pointerdown",function(e){if(e.target&&e.target.closest&&e.target.closest(".splash"))skip()},true);
+document.addEventListener("keydown",skip,true);
+})();
+</script>
 <link rel="preload" as="image" type="image/webp" media="(max-width: 700px)" imagesrcset="/assets/v3/img/bg-750.webp 750w, /assets/v3/img/bg-900.webp 900w" imagesizes="100vw" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" media="(min-width: 701px)" href="/assets/v3/img/bg-1080.webp" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" imagesrcset="/assets/v3/img/lockup-750.webp 750w, /assets/v3/img/lockup-1080.webp 1080w" imagesizes="100vw" fetchpriority="high">
-<link rel="stylesheet" id="font-css" href="https://use.typekit.net/riq0xse.css" media="print" onload="this.media='all'">
-<link rel="preload" as="style" href="/assets/v3/css/site.css?v=1">
-<link rel="stylesheet" id="site-css" href="/assets/v3/css/site.css?v=1" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://use.typekit.net/riq0xse.css"><link rel="stylesheet" href="/assets/v3/css/site.css?v=1"><style>.splash{display:none}html:not(.is-ready) .bg__words,html:not(.is-ready) .page,html:not(.is-ready) .nav{visibility:visible}</style></noscript>
+<link rel="preload" as="style" href="/assets/v3/css/site.css?v=2">
+<link rel="stylesheet" id="site-css" href="/assets/v3/css/site.css?v=2" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://use.typekit.net/riq0xse.css"><link rel="stylesheet" href="/assets/v3/css/site.css?v=2"><style>html:not(.is-ready) body>:not(.splash){visibility:visible}</style></noscript>
 <link rel="preload" href="/data/schedule.json" as="fetch" crossorigin>
-<script src="/assets/v3/js/site.js?v=1" defer></script>
-<script src="/assets/v3/js/home.js?v=1" defer></script>
+<script src="/assets/v3/js/site.js?v=2" defer></script>
+<script src="/assets/v3/js/home.js?v=2" defer></script>
 </head>
 <body data-page="home">
 
-<!-- Splash: shown on the first homepage load of a visit. Styled by the inline CSS in the head. -->
+<!-- Splash: plays on the first page opened in a tab. Styled and timed by the inline CSS and script in the head. -->
 <div class="splash" id="splash" aria-hidden="true">
-  <picture>
-    <source media="(max-width: 700px)" type="image/webp" srcset="/assets/v3/img/bg-750.webp 750w, /assets/v3/img/bg-900.webp 900w" sizes="100vw">
-    <source type="image/webp" srcset="/assets/v3/img/bg-1080.webp">
-    <img class="splash__fill" src="/assets/v3/img/bg-fallback.jpg" alt="" decoding="async" onload="this.className+=' is-in'">
-  </picture>
-  <picture>
-    <source media="(max-width: 700px)" type="image/webp" srcset="/assets/v3/img/bg-750.webp 750w, /assets/v3/img/bg-900.webp 900w" sizes="100vw">
-    <source type="image/webp" srcset="/assets/v3/img/bg-1080.webp">
-    <img class="splash__art splash__photo" src="/assets/v3/img/bg-fallback.jpg" alt="" decoding="async" onload="this.className+=' is-in'">
-  </picture>
-  <picture>
-    <source type="image/webp" srcset="/assets/v3/img/lockup-750.webp 750w, /assets/v3/img/lockup-1080.webp 1080w" sizes="100vw">
-    <img class="splash__art" src="/assets/with-lockup-white.png" alt="" decoding="async" onload="this.className+=' is-in'">
-  </picture>
+  <div class="splash__stage">
+    <picture>
+      <source media="(max-width: 700px)" type="image/webp" srcset="/assets/v3/img/bg-750.webp 750w, /assets/v3/img/bg-900.webp 900w" sizes="100vw">
+      <source type="image/webp" srcset="/assets/v3/img/bg-1080.webp">
+      <img class="splash__photo" src="/assets/v3/img/bg-fallback.jpg" alt="" decoding="async">
+    </picture>
+    <div class="splash__shade"></div>
+    <div class="splash__sun"></div>
+    <div class="splash__field"></div>
+  </div>
+  <div class="splash__screen"></div>
+  <div class="splash__grain"></div>
+  <div class="splash__title">
+    <p class="splash__welcome">Welcome to the</p>
+    <div class="splash__word"><div class="splash__glow"></div><p class="splash__with">with</p></div>
+    <p class="splash__conf">Georgia Young Adult Conference</p>
+  </div>
 </div>
 
 <div class="bg bg--home" aria-hidden="true">
