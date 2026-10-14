@@ -8,13 +8,13 @@ Read `BRAND.md` (look and feel) and `SITE-SPEC.md` (pages and behavior) before c
 
 The site is built in numbered versions. Each version has five pages and its own copy of the CSS and JS, and links only to its own pages.
 
-| Page | Version 1 (frozen) | Version 2 (current) |
-|---|---|---|
-| Home | `/home-version1/` | `/home-version2/` |
-| Schedule | `/schedule-version1/` | `/schedule-version2/` |
-| Breakouts | `/breakouts-version1/` | `/breakouts-version2/` |
-| Map | `/map-version1/` | `/map-version2/` |
-| Resources | `/resources-version1/` | `/resources-version2/` |
+| Page | Version 1 (frozen) | Version 2 (frozen) | Version 3 (current) |
+|---|---|---|---|
+| Home | `/home-version1/` | `/home-version2/` | `/home-version3/` |
+| Schedule | `/schedule-version1/` | `/schedule-version2/` | `/schedule-version3/` |
+| Breakouts | `/breakouts-version1/` | `/breakouts-version2/` | `/breakouts-version3/` |
+| Map | `/map-version1/` | `/map-version2/` | `/map-version3/` |
+| Resources | `/resources-version1/` | `/resources-version2/` | `/resources-version3/` |
 
 Every new round of changes becomes the next version: copy the latest pages and `public/assets/vN/` folder to the next number, update the `ROUTES` object in that copy's `site.js`, and change things there. Published versions are never edited.
 
@@ -29,12 +29,16 @@ Every new round of changes becomes the next version: copy the latest pages and `
   - `data/resources.json` — the Resources page content. Shared by every version.
   - `assets/vN/css/site.css` — that version's one shared stylesheet.
   - `assets/vN/js/site.js` — that version's shared script: `ROUTES`, the clock, data loading, nav and live banner. Plus one small script per page.
-  - `assets/v2/img/` — phone-sized and full-size WebP copies of the background and lockup. `assets/v2/map.svg` — the map, with room ids matching `schedule.json`.
+  - `assets/vN/img/` (version 2 on) — phone-sized and full-size WebP copies of the background and lockup. `assets/vN/map.svg` — the map, with room ids matching `schedule.json`.
   - `assets/*.jpg`, `*.png`, `hero-*.webp`, `map.svg` — the original artwork. Never edited; version 1 loads these directly.
 - `wrangler.jsonc` — Cloudflare Workers configuration.
 - `BRAND.md`, `SITE-SPEC.md` — the design and behavior specs.
 - `CLAUDE.md` / `AGENTS.md` — standing rules for AI coding agents (Claude Code and Codex).
 - `.claude/settings.json` — lets Claude Code run `git add`, `git commit` and `git push` without a permission prompt.
+
+## Homepage splash (version 3)
+
+The homepage shows a full-screen splash on the first homepage load of a visit. Its CSS and a tiny placeholder of the photo and lockup are inline in `home-version3/index.html`, so it paints before anything else loads; the rest of the page loads behind it. It stays up at least 0.8 seconds and lifts by 2.5 seconds at the latest.
 
 ## Changing content
 
@@ -44,7 +48,7 @@ Edit `public/data/schedule.json` or `public/data/resources.json` and push. Nothi
 
 `public/_headers` tells phones how long to keep files:
 
-- Version folders (`/assets/v1/`, `/assets/v2/`) are kept for a year, because they are frozen. If a file inside a version ever has to change, bump the `?v=` number on its URL in the pages that load it so phones fetch the new copy.
+- Version folders (`/assets/v1/`, `/assets/v2/`, `/assets/v3/`) are kept for a year, because they are frozen. Add a rule for each new version folder. If a file inside a version ever has to change, bump the `?v=` number on its URL in the pages that load it so phones fetch the new copy.
 - `/data/*.json` is kept for one minute.
 - Pages are re-checked on every visit.
 
@@ -53,7 +57,7 @@ Edit `public/data/schedule.json` or `public/data/resources.json` and push. Nothi
 Add `?now=` to any page URL to fake the clock (read as Eastern time). It carries through every internal link.
 
 ```
-/home-version2/?now=2026-10-17T11:20
+/home-version3/?now=2026-10-17T11:20
 ```
 
 ## Local preview
