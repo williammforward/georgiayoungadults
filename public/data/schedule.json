@@ -1,3 +1,199 @@
 {
-  "sessions": []
+  "event": {
+    "name": "Georgia Young Adult Conference",
+    "theme": "WITH",
+    "date": "2026-10-17",
+    "venue": "Evangel Church",
+    "timezone": "America/New_York"
+  },
+  "sessions": [
+    {
+      "id": "checkin",
+      "title": "Check-in & Coffee Hangout",
+      "start": "2026-10-17T09:15:00-04:00",
+      "end": "2026-10-17T09:45:00-04:00",
+      "room": "south-entrance"
+    },
+    {
+      "id": "doors",
+      "title": "Doors Open",
+      "start": "2026-10-17T09:45:00-04:00",
+      "end": "2026-10-17T10:00:00-04:00",
+      "room": "sanctuary"
+    },
+    {
+      "id": "main-1",
+      "title": "Main Session 1",
+      "start": "2026-10-17T10:00:00-04:00",
+      "end": "2026-10-17T11:15:00-04:00",
+      "room": "sanctuary"
+    },
+    {
+      "id": "break",
+      "title": "Break",
+      "start": "2026-10-17T11:15:00-04:00",
+      "end": "2026-10-17T11:25:00-04:00",
+      "room": null
+    },
+    {
+      "id": "breakouts",
+      "title": "Breakouts",
+      "start": "2026-10-17T11:25:00-04:00",
+      "end": "2026-10-17T12:30:00-04:00",
+      "room": null,
+      "breakouts": [
+        {
+          "id": "work",
+          "title": "With Jesus When You Are at Work",
+          "speakers": [
+            "Jaime Chavez"
+          ],
+          "room": "rm-210",
+          "summary": "This session will lean into the reality that some of us who feel so deeply called to ministry may never work within the walls of a church. From a paycheck to a platform, learn how to pursue Him when Monday is Ministry!"
+        },
+        {
+          "id": "connect",
+          "title": "Georgia Young Adults Connect",
+          "speakers": [
+            "Johnny Mendoza"
+          ],
+          "room": "el-404",
+          "summary": "Come connect and grow with other Young Adult Ministry leaders."
+        },
+        {
+          "id": "marriage",
+          "title": "With Jesus in Marriage",
+          "speakers": [
+            "Lexi Morrison",
+            "Darren Morrison"
+          ],
+          "room": "wm",
+          "summary": "There is a reason that God joined you together. Explore ways that you can work together in this interactive breakout session. Leave with practical tools to practice being with Jesus in your marriage."
+        },
+        {
+          "id": "marriage-kids",
+          "title": "With Jesus in Marriage + Kids",
+          "speakers": [
+            "Daniel Beasley",
+            "Brittney Beasley"
+          ],
+          "room": "el-405",
+          "summary": "Parenthood is primed for opportunities in receiving, reciprocating, and learning kingdom rhythms! Abide in the Father amidst little sleep and lots of love."
+        },
+        {
+          "id": "ministry",
+          "title": "With Jesus in Ministry",
+          "speakers": [
+            "Josiah Arreola"
+          ],
+          "room": "el-407",
+          "summary": "If you're working in ministry, or feel called to vocational ministry in the future, come join us as we learn what it looks like to steward our personal relationship with Jesus, so we can shepherd God's people from the healthiest place possible!"
+        },
+        {
+          "id": "mundane",
+          "title": "With Jesus in the Mundane",
+          "speakers": [
+            "Jonah Mills"
+          ],
+          "room": "rm-211",
+          "summary": "Most of life isn't mountaintop moments. It's commutes, dishes, and ordinary Tuesdays. Come discover how the everyday, unremarkable parts of your routine can become places where you walk with Jesus, notice His presence, and grow deeper with Him right where you are."
+        },
+        {
+          "id": "suffering",
+          "title": "With Jesus in the Middle of Suffering",
+          "speakers": [
+            "Justin Gaston"
+          ],
+          "room": "el-406",
+          "summary": "Seasons of pain and loss can leave us wondering where God is. In this session, we'll talk honestly about walking through hard seasons and explore what it looks like to stay close to Jesus, hold on to hope, and know you're not alone in the middle of it."
+        }
+      ]
+    },
+    {
+      "id": "lunch",
+      "title": "Lunch Onsite",
+      "start": "2026-10-17T12:30:00-04:00",
+      "end": "2026-10-17T13:30:00-04:00",
+      "room": null
+    },
+    {
+      "id": "main-2",
+      "title": "Main Session 2",
+      "start": "2026-10-17T13:30:00-04:00",
+      "end": "2026-10-17T15:30:00-04:00",
+      "room": "sanctuary"
+    },
+    {
+      "id": "closing",
+      "title": "Closing & Goodbye",
+      "start": "2026-10-17T15:30:00-04:00",
+      "end": null,
+      "room": "sanctuary"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "rm-210",
+      "label": "RM 210",
+      "area": "Main Hallway"
+    },
+    {
+      "id": "rm-211",
+      "label": "RM 211",
+      "area": "Main Hallway"
+    },
+    {
+      "id": "wm",
+      "label": "WM Classroom",
+      "area": "Next to RM 204"
+    },
+    {
+      "id": "el-404",
+      "label": "EL 404",
+      "area": "Explorers Landing"
+    },
+    {
+      "id": "el-405",
+      "label": "EL 405",
+      "area": "Explorers Landing"
+    },
+    {
+      "id": "el-406",
+      "label": "EL 406",
+      "area": "Explorers Landing"
+    },
+    {
+      "id": "el-407",
+      "label": "EL 407",
+      "area": "Explorers Landing"
+    },
+    {
+      "id": "sanctuary",
+      "label": "Sanctuary",
+      "area": "Center of building"
+    },
+    {
+      "id": "milltown-coffee",
+      "label": "Milltown Coffee",
+      "area": "Milltown Square"
+    },
+    {
+      "id": "milltown-square",
+      "label": "Milltown Square",
+      "area": "Front of building"
+    },
+    {
+      "id": "south-entrance",
+      "label": "South Entrance",
+      "area": "Next to RM 211, off the South Parking Lot"
+    }
+  ],
+  "_notes": [
+    "All times are Eastern with the -04:00 offset. Every end time equals the next session's start, per the official schedule.",
+    "Main sessions, doors, and closing are in the Sanctuary. Check-in is at the South Entrance (attendees only reach this site after check-in via their badge, so check-in is shown for reference only).",
+    "Lunch location not specified; the site shows 'Onsite' with no room.",
+    "Closing end time is not confirmed. Treat Closing as lasting 30 minutes for the live banner only.",
+    "EL 404-407 are in Explorers Landing.",
+    "Breakout 'Needs' (pens, handouts) are internal logistics and intentionally NOT in this file. Never show them on the site."
+  ]
 }
