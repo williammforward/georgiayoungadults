@@ -226,6 +226,67 @@ img { display: block; max-width: 100%; }
 
 .photo img { width: 100%; height: 100%; object-fit: cover; }
 
+/* ---------- Click-to-play video ---------- */
+
+.video {
+  position: relative;
+  margin: -8px -8px 18px;
+  overflow: hidden;
+  border-radius: 20px;
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
+  isolation: isolate;
+}
+
+.video__start {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.video__start img { width: 100%; height: 100%; object-fit: cover; }
+
+.video__start::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(30, 38, 32, .1), rgba(30, 38, 32, .35));
+}
+
+.video__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--sun);
+  color: var(--ink);
+  box-shadow: 0 10px 24px -10px rgba(30, 38, 32, .8);
+  transform: translate(-50%, -50%);
+  transition: scale .25s var(--ease);
+}
+
+.video__play svg { width: 26px; height: 26px; margin-left: 3px; }
+.video__start:active .video__play { scale: .94; }
+
+.video iframe,
+.video .video__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 /* ---------- Pills ---------- */
 
 .pills { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -389,4 +450,5 @@ img { display: block; max-width: 100%; }
 
 @media (prefers-reduced-motion: reduce) {
   .btn:active { scale: none; }
+  .video__start:active .video__play { scale: none; }
 }

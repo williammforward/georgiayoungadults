@@ -25,7 +25,7 @@ Version 3 is the final working version: edit it in place, and never create new v
   - `_headers` — caching rules (see below).
   - `index.html` — the temporary registration homepage at `/`, a restyled copy of georgiayouthmin.org/young-adult-conference. Its own files are in `register/` (CSS and JS) and `assets/register/` (photos). Register buttons go to the Elexio form. Marked `noindex` with a canonical link to the original page.
   - `favicon.ico`, `site.webmanifest`, `assets/favicon-32.png`, `assets/apple-touch-icon.png`, `assets/icon-192.png`, `assets/icon-512.png` — icons, made from `assets/new-favicon.jpg`.
-  - `assets/social-header.jpg` — the 1200×630 link-preview image (cropped from `social-header-square.jpg`).
+  - `assets/conferenceguide-1200x630.jpg` — the 1200×630 link-preview image used on every page (cropped from `conferenceguide.jpg`).
   - `<page>-versionN/index.html` — thin HTML shells, all marked `noindex`. Content is rendered from the data files.
   - `data/schedule.json` — event, sessions, breakouts and rooms. Times use full ISO 8601 with the Eastern offset (e.g. `2026-10-17T10:00:00-04:00`). Shared by every version.
   - `data/resources.json` — the Resources page content. Shared by every version.
