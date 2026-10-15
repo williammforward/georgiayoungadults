@@ -74,3 +74,10 @@
 # Schedule and resources: short cache so edits reach phones within a minute.
 /data/*
   Cache-Control: public, max-age=60
+
+# Temporary registration homepage (/). Code re-checked every 5 minutes; photos kept.
+/register/*
+  Cache-Control: public, max-age=300
+
+/assets/register/*
+  Cache-Control: public, max-age=2592000

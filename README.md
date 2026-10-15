@@ -21,9 +21,11 @@ Version 3 is the final working version: edit it in place, and never create new v
 ## Folder structure
 
 - `public/` — everything served by the Worker (the `assets.directory` in `wrangler.jsonc`). Plain HTML, CSS and JavaScript; no build step.
-  - `_redirects` — sends `/` (homepage only) to the registration page with a temporary 302 until launch.
+  - `_redirects` — currently empty. (It used to send `/` to the registration site.)
   - `_headers` — caching rules (see below).
-  - `index.html` — placeholder that sits behind the redirect.
+  - `index.html` — the temporary registration homepage at `/`, a restyled copy of georgiayouthmin.org/young-adult-conference. Its own files are in `register/` (CSS and JS) and `assets/register/` (photos). Register buttons go to the Elexio form. Marked `noindex` with a canonical link to the original page.
+  - `favicon.ico`, `site.webmanifest`, `assets/favicon-32.png`, `assets/apple-touch-icon.png`, `assets/icon-192.png`, `assets/icon-512.png` — icons, made from `assets/new-favicon.jpg`.
+  - `assets/social-header.jpg` — the 1200×630 link-preview image (cropped from `social-header-square.jpg`).
   - `<page>-versionN/index.html` — thin HTML shells, all marked `noindex`. Content is rendered from the data files.
   - `data/schedule.json` — event, sessions, breakouts and rooms. Times use full ISO 8601 with the Eastern offset (e.g. `2026-10-17T10:00:00-04:00`). Shared by every version.
   - `data/resources.json` — the Resources page content. Shared by every version.
@@ -38,9 +40,11 @@ Version 3 is the final working version: edit it in place, and never create new v
 
 ## Splash (version 3)
 
-The first page opened in a browser tab, whichever page it is, plays a cinematic title card ("WELCOME TO THE / with / GEORGIA YOUNG ADULT CONFERENCE") and then cross-dissolves into the page. Moving between pages or using the back button doesn't replay it; a new tab does (remembered in `sessionStorage`). Tapping skips it with a faster dissolve.
+The first page opened in a browser tab, whichever page it is, plays the welcome video (`assets/v3/video/welcome-splash-720.mp4`, re-encoded from `assets/welcome-splash.mp4`) and then cross-dissolves into the page. Moving between pages or using the back button doesn't replay it; a new tab does (remembered in `sessionStorage`). Tapping skips it with a faster dissolve.
 
-Its markup, CSS and timing script are inline at the top of each version 3 page so it paints before anything else loads. The page loads underneath in parallel; each page script calls `Site.pageReady()` when its content is in place. The title holds until about 6 seconds and dissolves once the page is ready, never later than 8 seconds.
+If the video is refused (iPhone Low Power Mode), fails, or hasn't started within 1 second, a still welcome card (`assets/v3/img/welcome-text-720.webp`, from `assets/welcomejawn.png`) shows instead. Reduced motion always uses the still card. Nothing waits longer than 8 seconds.
+
+Its markup, CSS and timing script are inline at the top of each version 3 page. The page loads underneath in parallel; each page script calls `Site.pageReady()` when its content is in place.
 
 ## Changing content
 
@@ -75,7 +79,7 @@ The `/` redirect and the caching rules only apply on Cloudflare, not locally.
 
 ## Launch day
 
-1. Change the `ROUTES` object at the top of the current version's `site.js` to the launch URLs.
-2. Move that version's page folders to their launch paths (Home becomes `public/index.html`).
-3. Delete the redirect line in `public/_redirects`.
+1. Remove the temporary registration page: `public/index.html`, `public/register/` and `public/assets/register/`.
+2. Change the `ROUTES` object at the top of version 3's `site.js` to the launch URLs.
+3. Move version 3's page folders to their launch paths (Home becomes `public/index.html`).
 4. Remove `<meta name="robots" content="noindex">` from each page.
