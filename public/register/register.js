@@ -61,9 +61,9 @@
     return apiReady;
   }
 
-  function embed(box, id, title) {
+  function embed(box, id, title, start) {
     const frame = document.createElement("iframe");
-    frame.src = HOST + "/embed/" + encodeURIComponent(id) + "?autoplay=1&playsinline=1&rel=0";
+    frame.src = HOST + "/embed/" + encodeURIComponent(id) + "?autoplay=1&playsinline=1&rel=0" + (start ? "&start=" + start : "");
     frame.title = title;
     frame.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
     frame.allowFullscreen = true;
@@ -72,9 +72,10 @@
 
   function play(box) {
     const id = box.getAttribute("data-yt");
+    const start = parseInt(box.getAttribute("data-start"), 10) || 0;
     const button = box.querySelector(".video__start");
     const title = button ? button.getAttribute("aria-label") : "Video";
-    if (!useApi) { embed(box, id, title); return; }
+    if (!useApi) { embed(box, id, title, start); return; }
 
     const slot = document.createElement("div");
     slot.className = "video__frame";
@@ -86,13 +87,13 @@
         videoId: id,
         width: "100%",
         height: "100%",
-        playerVars: { autoplay: 1, playsinline: 1, rel: 0 },
+        playerVars: { autoplay: 1, playsinline: 1, rel: 0, start: start },
         events: { onReady: function (e) { e.target.playVideo(); } }
       });
       const frame = player.getIframe && player.getIframe();
       if (frame) frame.title = title;
     }).catch(function () {
-      embed(box, id, title);
+      embed(box, id, title, start);
     });
   }
 

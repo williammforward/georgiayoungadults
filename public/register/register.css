@@ -157,23 +157,25 @@ img { display: block; max-width: 100%; }
   padding: 0 12px calc(env(safe-area-inset-bottom, 0px) + 28px);
 }
 
-/* The hero shows the poster: photo plus the WITH lockup, never cropped at the sides. */
+/* Compact header: just the WITH lockup, with the cards starting right below it. */
 .hero {
-  position: relative;
-  height: calc(100svh - 236px);
-  min-height: 420px;
-  max-height: 780px;
   margin: 0 -12px;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.hero__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
 }
 
 .hero__lockup {
   position: absolute;
-  left: 50%;
+  left: 0;
   top: 50%;
-  width: min(100%, 480px);
+  width: 100%;
   aspect-ratio: 9 / 16;
-  transform: translate(-50%, -52%);
+  transform: translateY(-50%);
   object-fit: cover;
 }
 
