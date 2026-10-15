@@ -353,6 +353,7 @@ button.card:active { scale: .985; }
 }
 
 .card__title { margin-top: 14px; }
+.card__note { margin-top: 8px; max-width: 34ch; }
 .card__sub { margin-top: 10px; flex: 1; min-width: 0; }
 .card__foot { margin-top: 14px; }
 
@@ -596,6 +597,15 @@ button.card:active { scale: .985; }
 }
 
 .banner__close svg { width: 18px; height: 18px; }
+
+.banner__note {
+  --stroke: .5px;
+  display: block;
+  margin-top: 3px;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.3;
+}
 
 /* ---------- Home: live card ---------- */
 
@@ -1086,6 +1096,70 @@ button.card:active { scale: .985; }
 }
 
 .roomcard__empty { margin-top: 12px; }
+
+/* ---------- Resources ---------- */
+
+.questions {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: q;
+}
+
+.questions li {
+  counter-increment: q;
+  position: relative;
+  padding: 12px 0 12px 46px;
+  border-top: 2px solid rgba(30, 38, 32, .12);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.questions li::before {
+  --stroke: .5px;
+  content: counter(q);
+  position: absolute;
+  left: 0;
+  top: 11px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--sun);
+  font-weight: 900;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.card.card--tall { position: relative; top: auto; }
+
+.focus { margin-top: 16px; }
+.focus .pill { font-size: 12px; }
+
+.feature__btn { margin-top: 20px; }
+
+.section-label {
+  margin: 34px 10px 14px;
+  font-size: 14px;
+}
+
+.footnote { margin-top: 34px; }
+
+.footnote__title {
+  --stroke: .4px;
+  font-size: 12.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.footnote__body {
+  --stroke: .4px;
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+}
 
 /* ---------- Notices ---------- */
 

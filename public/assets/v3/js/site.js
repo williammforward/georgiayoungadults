@@ -337,6 +337,7 @@
           h("span", { class: "banner__tag" }, pick.type === "next" ? "Up next" : "Happening now"),
           s.title));
       if (meta) text.appendChild(h("span", { class: "banner__meta" }, meta));
+      if (s.note) text.appendChild(h("span", { class: "banner__note" }, s.note));
       shown = key;
       current = s.id;
       el.inert = false;

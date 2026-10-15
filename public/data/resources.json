@@ -1,55 +1,70 @@
 {
-  "placeholder": false,
-  "intro": {
-    "title": "Practicing the Way",
-    "body": "A free set of resources from John Mark Comer's Practicing the Way, built around being with Jesus, becoming like Him, and doing as He did. A great next step after a day about life WITH Jesus."
+  "questions": {
+    "title": "Take it with you",
+    "subtitle": "Discussion questions to reflect on or talk through together.",
+    "items": [
+      "Where did I sense Jesus drawing my attention today?",
+      "What has been stirring in me that I haven't had words for until now?",
+      "What am I carrying that Jesus may be asking me to bring to Him or surrender?",
+      "Where have I been trying to move forward without first being with Jesus?",
+      "What would need to change in my everyday life because I have been with Jesus?"
+    ]
   },
-  "items": [
+  "intro": {
+    "title": "Resources",
+    "body": "We've gathered some of our favorite tools to help you keep being with Jesus, becoming like Him, and doing as He did, long after today."
+  },
+  "featured": [
     {
-      "id": "course",
-      "title": "The Course",
-      "tag": "8 sessions",
-      "summary": "A free eight-session introduction to spiritual formation. Great to go through with your small group or a few friends.",
-      "url": "https://www.practicingtheway.org/"
+      "id": "practicing-the-way",
+      "title": "Practicing the Way",
+      "author": "John Mark Comer",
+      "summary": "A modern framework for apprenticing your life to Jesus by organizing it around spiritual practices and life with Him. Especially helpful for the things young adults wrestle with most: community, busyness, distraction, and trying to earn God's love.",
+      "focus": ["Being with Jesus", "Becoming like Jesus", "Doing what Jesus did", "Sabbath", "Prayer", "Scripture", "Community", "Simplicity", "Generosity", "Mission"],
+      "url": "https://www.practicingtheway.org"
     },
     {
-      "id": "practices",
-      "title": "The Practices",
-      "tag": "9 disciplines",
-      "summary": "Nine core spiritual practices for building your life around time with Jesus.",
-      "url": "https://www.practicingtheway.org/"
-    },
-    {
-      "id": "rule-of-life",
-      "title": "Rule of Life Builder",
-      "tag": "Tool",
-      "summary": "Create your own personal set of practices and rhythms for following Jesus in everyday life.",
-      "url": "https://www.practicingtheway.org/"
-    },
-    {
-      "id": "reflection",
-      "title": "Spiritual Health Reflection",
-      "tag": "Tool",
-      "summary": "A guided check-in on where you are with God right now.",
-      "url": "https://www.practicingtheway.org/"
-    },
-    {
-      "id": "book",
-      "title": "The Book",
-      "tag": "Read",
-      "summary": "Practicing the Way by John Mark Comer, a short, readable book on becoming more like Jesus.",
-      "url": "https://www.practicingtheway.org/"
-    },
-    {
-      "id": "podcast",
-      "title": "Podcasts",
-      "tag": "Listen",
-      "summary": "Long-form conversations with spiritual formation leaders.",
-      "url": "https://www.practicingtheway.org/"
+      "id": "emotionally-healthy-spirituality",
+      "title": "Emotionally Healthy Spirituality",
+      "author": "Pete Scazzero",
+      "summary": "Explores how emotional health and spiritual maturity go hand in hand. As you face adulthood's real pressures (dating, marriage, work-life balance, family dynamics), it helps you address unhealthy patterns and old wounds so you can grow into a healthier follower of Jesus.",
+      "focus": ["Healthy relationships", "Emotional health", "Spiritual formation", "Boundaries", "Personal reflection", "Leadership health"],
+      "url": "https://emotionallyhealthy.org"
     }
   ],
+  "sections": [
+    {
+      "id": "leaders",
+      "label": "For leaders",
+      "items": [
+        { "name": "Alpha", "summary": "Conversations about life and faith for anyone exploring Jesus.", "url": "https://alpha.org" },
+        { "name": "BibleProject", "summary": "Free animated videos and resources that make the Bible come alive.", "url": "https://bibleproject.com" },
+        { "name": "Enduring Word", "summary": "Free verse-by-verse Bible commentary by David Guzik.", "url": "https://enduringword.com" },
+        { "name": "RightNow Media", "summary": "Thousands of Bible study videos for groups and individuals.", "url": "https://www.rightnowmedia.org" },
+        { "name": "YouVersion Bible Plans", "summary": "Free daily reading plans in the Bible App.", "url": "https://www.bible.com/reading-plans" },
+        { "name": "Adult & Teen Challenge", "summary": "Hope and help for people facing life-controlling issues.", "url": "https://teenchallengeusa.org" },
+        { "name": "Barna Group", "summary": "Research on Gen Z, young adults, and faith.", "url": "https://www.barna.com" }
+      ]
+    },
+    {
+      "id": "follows",
+      "label": "Podcasts & follows",
+      "items": [
+        { "name": "@youngadults.today", "tag": "Instagram", "url": "https://www.instagram.com/youngadults.today/" },
+        { "name": "@youngadult.ag", "tag": "Instagram", "url": "https://www.instagram.com/youngadult.ag/" },
+        { "name": "Becoming Something", "tag": "Podcast", "summary": "By Jonathan \"JP\" Pokluda.", "url": "https://podcasts.apple.com/us/podcast/becoming-something-with-jonathan-pokluda/id1454045768" },
+        { "name": "Mature Me", "tag": "Podcast", "summary": "By Rich Wilkerson Jr.", "url": "https://podcasts.apple.com/us/podcast/mature-me-w-rich-wilkerson-jr/id1727468541" },
+        { "name": "AG NextGen Leaders", "tag": "Podcast", "summary": "From the Assemblies of God USA.", "url": "https://ag.org/podcast" }
+      ]
+    }
+  ],
+  "footnote": {
+    "title": "A note on resources",
+    "body": "No resource outside of Scripture is perfect, but tools like these offer practical ways to grow in your relationship with Jesus, engage in real community, and build healthy rhythms for a lifetime of following Him. These have been tested and found helpful in our Young Adult Ministry. We encourage you to weigh every resource through the lens of Scripture and the teaching of your local church."
+  },
   "_notes": [
-    "These are the conference resources. Edit this file to change what the Resources page shows.",
-    "All links point to the Practicing the Way homepage on purpose. Do not invent deeper URLs."
+    "The Resources page shows, in order: questions, intro, featured, each section, then the footnote.",
+    "An item without a url shows as a card with no arrow. Never guess a URL.",
+    "The two podcast links were confirmed on Apple Podcasts on 2026-10-15."
   ]
 }

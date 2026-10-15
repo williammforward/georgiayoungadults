@@ -21,6 +21,31 @@
 /assets/v3/img/*
   Cache-Control: public, max-age=31536000, immutable
 
+/assets/v3/video/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Icons and the social preview image.
+/favicon.ico
+  Cache-Control: public, max-age=604800
+
+/site.webmanifest
+  Cache-Control: public, max-age=86400
+
+/assets/favicon-32.png
+  Cache-Control: public, max-age=604800
+
+/assets/apple-touch-icon.png
+  Cache-Control: public, max-age=604800
+
+/assets/icon-192.png
+  Cache-Control: public, max-age=604800
+
+/assets/icon-512.png
+  Cache-Control: public, max-age=604800
+
+/assets/social-header.jpg
+  Cache-Control: public, max-age=86400
+
 # Original artwork (used by version 1). These files are never edited in place.
 /assets/hero-vertical.webp
   Cache-Control: public, max-age=2592000

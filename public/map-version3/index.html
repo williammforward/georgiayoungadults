@@ -6,54 +6,50 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#2F4A5A">
 <title>Map · WITH</title>
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="WITH · Georgia Young Adult Conference">
+<meta property="og:title" content="WITH · Georgia Young Adult Conference">
+<meta property="og:description" content="October 17, 2026 at Evangel Church, Columbus, GA.">
+<meta property="og:url" content="https://georgiayoungadults.com/map-version3/">
+<meta property="og:image" content="https://georgiayoungadults.com/assets/social-header.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Georgia Young Adults">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WITH · Georgia Young Adult Conference">
+<meta name="twitter:description" content="October 17, 2026 at Evangel Church, Columbus, GA.">
+<meta name="twitter:image" content="https://georgiayoungadults.com/assets/social-header.jpg">
 <!-- Critical CSS: the splash paints from this alone; the page waits for its own stylesheet. -->
 <style>
-:root{--sp-e:cubic-bezier(.22,.61,.36,1)}
 html{background:#2F4A5A}
 body{margin:0}
 /* The page shows once its own stylesheet has loaded. */
 html:not(.is-ready) body>:not(.splash){visibility:hidden}
 /* ---- Splash (first page opened in a tab) ---- */
 .splash{display:none}
-html.splash-on{background:#060807}
+html.splash-on{background:#000}
 html.splash-on body>:not(.splash){opacity:0}
-html.splash-out body>:not(.splash){opacity:1;transition:opacity calc(var(--sp-out,1200ms)*.55) var(--sp-e)}
-html.splash-on .splash{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1000;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#060807;color:#fff;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
-.splash__stage{position:absolute;top:-6%;right:-6%;bottom:-6%;left:-6%;animation:sp-in 1.5s var(--sp-e) both,sp-drift 10s var(--sp-e) both}
-.splash__photo{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;filter:saturate(.5)}
-.splash__shade,.splash__sun,.splash__field,.splash__screen,.splash__grain{position:absolute;top:0;right:0;bottom:0;left:0}
-.splash__shade{background:linear-gradient(180deg,rgba(14,22,28,.86),rgba(8,12,13,.82) 55%,rgba(8,11,8,.88))}
-.splash__sun{background:radial-gradient(circle at 80% 14%,rgba(243,227,195,.42),rgba(243,227,195,.14) 24%,rgba(243,227,195,.04) 42%,transparent 60%);transform-origin:80% 15%;animation:sp-bloom 2.2s .2s var(--sp-e) both}
-.splash__field{background:radial-gradient(ellipse 110% 34% at 50% 106%,rgba(110,134,54,.5),rgba(110,134,54,.14) 55%,transparent 80%)}
-.splash__screen{background-image:radial-gradient(circle at center,#000 0,#000 .9px,transparent 1.35px),radial-gradient(circle at center,#000 0,#000 .9px,transparent 1.35px);background-size:6px 6px;background-position:0 0,3px 3px;--o:.7;opacity:.7;animation:sp-in 1.5s var(--sp-e) both}
-.splash__grain{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .7 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px 180px;--o:.12;opacity:.12;animation:sp-in 1.5s var(--sp-e) both}
-.splash__title{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;font-family:"neue-haas-grotesk-display","with-fallback","Helvetica Neue",Arial,sans-serif;color:#fff}
-.splash__title p{margin:0;white-space:nowrap;--s:.42px;text-shadow:var(--s) 0 0 currentColor,calc(var(--s)*-1) 0 0 currentColor,0 var(--s) 0 currentColor,0 calc(var(--s)*-1) 0 currentColor}
-.splash__welcome{font-weight:600;font-size:clamp(13px,3.6vw,15px);line-height:1.2;letter-spacing:.3em;padding-left:.3em;text-transform:uppercase;opacity:0}
-.splash__word{position:relative;margin:.12em 0 .14em}
-.splash__glow{position:absolute;left:50%;top:54%;width:130%;height:125%;background:radial-gradient(closest-side,rgba(243,227,195,.5),rgba(243,227,195,.16) 52%,transparent);opacity:0;transform:translate(-50%,-50%)}
-.splash__title .splash__with{position:relative;font-family:"ivyora-text",Georgia,serif;font-weight:700;font-style:italic;font-size:min(32.5vw,156px);line-height:1.1;text-transform:lowercase;padding:0 .14em 0 .08em;--s:1.7px;--d:calc(var(--s)*.7071);text-shadow:var(--s) 0 0 currentColor,calc(var(--s)*-1) 0 0 currentColor,0 var(--s) 0 currentColor,0 calc(var(--s)*-1) 0 currentColor,var(--d) var(--d) 0 currentColor,calc(var(--d)*-1) var(--d) 0 currentColor,var(--d) calc(var(--d)*-1) 0 currentColor,calc(var(--d)*-1) calc(var(--d)*-1) 0 currentColor;-webkit-mask-image:linear-gradient(90deg,#000 0,#000 34%,transparent 42%);mask-image:linear-gradient(90deg,#000 0,#000 34%,transparent 42%);-webkit-mask-size:300% 100%;mask-size:300% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:100% 0;mask-position:100% 0}
-.splash__conf{font-weight:900;font-size:min(3.3vw,15.8px);line-height:1.2;letter-spacing:.02em;text-transform:uppercase;opacity:0;--s:.45px}
-.splash.is-text .splash__welcome{animation:sp-up 1s var(--sp-e) both}
-.splash.is-text .splash__with{animation:sp-wipe 1.6s .8s var(--sp-e) both}
-.splash.is-text .splash__glow{animation:sp-swell 1.8s 2s var(--sp-e) both}
-.splash.is-text .splash__conf{animation:sp-up 1s 2.2s var(--sp-e) both}
-html.splash-out .splash{animation:sp-out var(--sp-out,1200ms) var(--sp-e) both}
-@keyframes sp-in{from{opacity:0}to{opacity:var(--o,1)}}
-@keyframes sp-drift{from{transform:scale(1)}to{transform:scale(1.06)}}
-@keyframes sp-bloom{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
-@keyframes sp-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@keyframes sp-wipe{from{-webkit-mask-position:100% 0;mask-position:100% 0}to{-webkit-mask-position:0 0;mask-position:0 0}}
-@keyframes sp-swell{0%{opacity:0;transform:translate(-50%,-50%) scale(.8)}55%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}100%{opacity:.7;transform:translate(-50%,-50%) scale(1)}}
-@keyframes sp-out{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.03)}}
+html.splash-out body>:not(.splash){opacity:1;transition:opacity calc(var(--sp-out,1200ms)*.55) cubic-bezier(.22,.61,.36,1)}
+html.splash-on .splash{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1000;display:block;overflow:hidden;background:#000;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+/* Sized to the full width (a few pixels of overhang at most) so the baked-in text is never cropped;
+   on taller screens the top and bottom edges feather into the black. */
+.splash__media{position:absolute;left:50%;top:50%;width:min(56.25vh,106vw);width:min(56.25dvh,106vw);aspect-ratio:9/16;transform:translate(-50%,-50%);object-fit:cover;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 9%,#000 91%,transparent 100%),linear-gradient(to right,transparent 0,#000 2.5%,#000 97.5%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0,#000 9%,#000 91%,transparent 100%),linear-gradient(to right,transparent 0,#000 2.5%,#000 97.5%,transparent 100%);mask-composite:intersect}
+.splash__video{background:#000}
+.splash__fallback{position:absolute;top:0;right:0;bottom:0;left:0;display:none;background:#000}
+.splash__fallback::before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;background:url("/assets/v3/img/bg-750.webp") 50% 50%/cover no-repeat;filter:saturate(.5) brightness(.3)}
+.splash.is-fallback .splash__fallback{display:block}
+.splash.is-fallback .splash__video{display:none}
+.splash__text{opacity:0;transition:opacity .9s cubic-bezier(.22,.61,.36,1)}
+.splash__text.is-in{opacity:1}
+html.splash-out .splash{animation:sp-out var(--sp-out,1200ms) cubic-bezier(.22,.61,.36,1) both}
+@keyframes sp-out{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.02)}}
 @keyframes sp-fade{from{opacity:1}to{opacity:0}}
 @media (prefers-reduced-motion:reduce){
-.splash__stage,.splash__screen,.splash__grain{animation:sp-in .4s ease both}
-.splash__sun{animation:none}
-.splash__title .splash__with{-webkit-mask-image:none;mask-image:none;opacity:0}
-.splash.is-text .splash__welcome,.splash.is-text .splash__with,.splash.is-text .splash__conf{animation:sp-in .3s ease both}
-.splash.is-text .splash__glow{animation:none;opacity:.7}
+.splash__text{transition:none}
 html.splash-out .splash{animation:sp-fade var(--sp-out,600ms) ease both}
 html.splash-out body>:not(.splash){transition-timing-function:ease}
 }
@@ -64,62 +60,61 @@ html.splash-out body>:not(.splash){transition-timing-function:ease}
 <link rel="stylesheet" id="font-css" href="https://use.typekit.net/riq0xse.css" media="print" onload="this.media='all'">
 <script>
 (function(){
-var d=document.documentElement,api={active:false,ready:function(){}};window.WITH_SPLASH=api;
+var d=document.documentElement,api={active:false,ready:function(){},start:function(){}};window.WITH_SPLASH=api;
 window.addEventListener("load",function(){setTimeout(function(){d.classList.add("is-ready")},1500)});
 var show=true;try{if(sessionStorage.getItem("with.v3.splash"))show=false;else sessionStorage.setItem("with.v3.splash","1")}catch(e){show=true}
 if(!show)return;
 api.active=true;d.classList.add("splash-on");
-var t0=performance.now(),reduce=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches),HOLD=reduce?2500:5000,textAt=0,isReady=false,gone=false;
-function now(){return performance.now()-t0}
+var pl=document.createElement("link");pl.rel="preload";pl.as="image";pl.href="/assets/v3/img/welcome-text-720.webp";pl.setAttribute("fetchpriority","high");document.head.appendChild(pl);
+var reduce=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches),isReady=false,doneAt=Infinity,gone=false,mode="";
+function now(){return performance.now()}
 function leave(ms){if(gone)return;gone=true;d.style.setProperty("--sp-out",ms+"ms");d.classList.add("splash-out");
-setTimeout(function(){var s=document.getElementById("splash");if(s&&s.parentNode)s.parentNode.removeChild(s);d.classList.remove("splash-on","splash-out");d.style.removeProperty("--sp-out")},ms+80)}
-function settle(){if(textAt&&isReady&&now()>=textAt+HOLD)leave(reduce?600:1200)}
-function text(){if(textAt)return;textAt=now();var s=document.getElementById("splash");if(s)s.classList.add("is-text");setTimeout(settle,HOLD+20)}
+var s=document.getElementById("splash"),v=s&&s.querySelector("video");
+setTimeout(function(){if(v){try{v.pause()}catch(e){}}if(s&&s.parentNode)s.parentNode.removeChild(s);d.classList.remove("splash-on","splash-out");d.style.removeProperty("--sp-out")},ms+80)}
+function settle(){if(isReady&&now()>=doneAt)leave(reduce?600:1200)}
 api.ready=function(){isReady=true;settle()};
-var L=document.getElementById("font-css");
-new Promise(function(r){if(!L||(L.sheet&&L.media!=="print"))r();else{L.addEventListener("load",r);L.addEventListener("error",r)}}).then(function(){
-if(!document.fonts||!document.fonts.load)return;
-return Promise.all(['italic 700 100px "ivyora-text"','600 16px "neue-haas-grotesk-display"','900 16px "neue-haas-grotesk-display"'].map(function(f){return document.fonts.load(f)}))
-}).catch(function(){}).then(function(){setTimeout(text,Math.max(0,(reduce?0:1000)-now()))});
-setTimeout(text,1500);
-setTimeout(function(){leave(reduce?600:1200)},Math.max(2500,8000-performance.now()));
+setTimeout(function(){leave(reduce?600:1200)},Math.max(2500,8000-now()));
 function skip(){if(!gone)leave(600)}
 document.addEventListener("pointerdown",function(e){if(e.target&&e.target.closest&&e.target.closest(".splash"))skip()},true);
 document.addEventListener("keydown",skip,true);
+api.start=function(){
+var s=document.getElementById("splash");if(!s)return;
+var v=s.querySelector("video"),img=s.querySelector(".splash__text");
+img.onload=function(){if(mode==="fallback")img.classList.add("is-in")};img.src=img.getAttribute("data-src");
+function fallback(hold){if(mode==="fallback")return;mode="fallback";
+if(v){try{v.pause()}catch(e){}v.removeAttribute("src");try{v.load()}catch(e){}}
+s.classList.add("is-fallback");
+if(img.complete&&img.naturalWidth)img.classList.add("is-in");
+doneAt=now()+hold;setTimeout(settle,hold+20)}
+if(reduce||!v||!v.play){fallback(reduce?1500:3300);return}
+v.muted=true;v.defaultMuted=true;v.playsInline=true;v.poster=v.getAttribute("data-poster");v.src=v.getAttribute("data-src");
+v.addEventListener("playing",function(){if(!mode)mode="video"});
+v.addEventListener("ended",function(){if(mode==="video"){doneAt=now();settle()}});
+v.addEventListener("error",function(){if(mode!=="video")fallback(3300)});
+var p;try{p=v.play()}catch(e){fallback(3300)}
+if(p&&p.catch)p.catch(function(){if(mode!=="video")fallback(3300)});
+setTimeout(function(){if(!mode)fallback(3300)},1000);
+};
 })();
 </script>
 <link rel="preload" as="image" type="image/webp" media="(max-width: 700px)" imagesrcset="/assets/v3/img/bg-750.webp 750w, /assets/v3/img/bg-900.webp 900w" imagesizes="100vw" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" media="(min-width: 701px)" href="/assets/v3/img/bg-1080.webp" fetchpriority="high">
-<link rel="preload" as="style" href="/assets/v3/css/site.css?v=2">
-<link rel="stylesheet" id="site-css" href="/assets/v3/css/site.css?v=2" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://use.typekit.net/riq0xse.css"><link rel="stylesheet" href="/assets/v3/css/site.css?v=2"><style>html:not(.is-ready) body>:not(.splash){visibility:visible}</style></noscript>
+<link rel="preload" as="style" href="/assets/v3/css/site.css?v=3">
+<link rel="stylesheet" id="site-css" href="/assets/v3/css/site.css?v=3" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://use.typekit.net/riq0xse.css"><link rel="stylesheet" href="/assets/v3/css/site.css?v=3"><style>html:not(.is-ready) body>:not(.splash){visibility:visible}</style></noscript>
 <link rel="preload" href="/data/schedule.json" as="fetch" crossorigin>
 <link rel="preload" href="/assets/v3/map.svg?v=1" as="fetch" crossorigin>
-<script src="/assets/v3/js/site.js?v=2" defer></script>
-<script src="/assets/v3/js/map.js?v=2" defer></script>
+<script src="/assets/v3/js/site.js?v=3" defer></script>
+<script src="/assets/v3/js/map.js?v=3" defer></script>
 </head>
 <body data-page="map">
 
 <!-- Splash: plays on the first page opened in a tab. Styled and timed by the inline CSS and script in the head. -->
 <div class="splash" id="splash" aria-hidden="true">
-  <div class="splash__stage">
-    <picture>
-      <source media="(max-width: 700px)" type="image/webp" srcset="/assets/v3/img/bg-750.webp 750w, /assets/v3/img/bg-900.webp 900w" sizes="100vw">
-      <source type="image/webp" srcset="/assets/v3/img/bg-1080.webp">
-      <img class="splash__photo" src="/assets/v3/img/bg-fallback.jpg" alt="" decoding="async">
-    </picture>
-    <div class="splash__shade"></div>
-    <div class="splash__sun"></div>
-    <div class="splash__field"></div>
-  </div>
-  <div class="splash__screen"></div>
-  <div class="splash__grain"></div>
-  <div class="splash__title">
-    <p class="splash__welcome">Welcome to the</p>
-    <div class="splash__word"><div class="splash__glow"></div><p class="splash__with">with</p></div>
-    <p class="splash__conf">Georgia Young Adult Conference</p>
-  </div>
+  <video class="splash__media splash__video" autoplay muted playsinline preload="auto" disableremoteplayback data-src="/assets/v3/video/welcome-splash-720.mp4" data-poster="/assets/v3/video/welcome-splash-poster.jpg"></video>
+  <div class="splash__fallback"><img class="splash__media splash__text" data-src="/assets/v3/img/welcome-text-720.webp" alt=""></div>
 </div>
+<script>window.WITH_SPLASH.start()</script>
 
 <div class="bg" aria-hidden="true">
   <div class="bg__drift">

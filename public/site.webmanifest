@@ -1,0 +1,12 @@
+{
+  "name": "WITH · Georgia Young Adult Conference",
+  "short_name": "WITH",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#2F4A5A",
+  "theme_color": "#2F4A5A",
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

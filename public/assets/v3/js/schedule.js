@@ -37,6 +37,7 @@
         now ? h("span", { class: "pill pill--now" }, h("span", { class: "dot dot--pulse" }), "Now") : null,
         S.pill(S.fmtTime(s.startAt), "white")),
       h("h2", { class: (now ? "t-card" : "t-head") + " card__title" }, s.title),
+      s.note ? h("p", { class: "t-body card__note" }, s.note) : null,
       below.length || s.breakouts
         ? h("div", { class: "card__row card__row--between card__row--end card__foot" },
             h("div", { class: "card__pills" }, below),

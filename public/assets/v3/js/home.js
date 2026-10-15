@@ -52,6 +52,7 @@
     const body = [
       head(tag),
       h("h2", { class: "t-card card__title" }, main.title),
+      main.note ? h("p", { class: "t-body card__note" }, main.note) : null,
       h("div", { class: "card__pills card__foot" },
         room ? S.pill(room) : null,
         current && main.end ? S.pill("Until " + S.fmtTime(main.endAt)) : null,
