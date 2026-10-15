@@ -28,10 +28,51 @@
       return li;
     });
     list.replaceChildren.apply(list, rows);
+    countdown(data);
   }).catch(function (err) {
     console.error(err);
     list.replaceChildren(el("li", "schedule__note", "The schedule didn’t load. Refresh to try again."));
   });
+
+  /* ---------- Countdown to check-in ---------- */
+
+  // Counts down to the first session (check-in). Once it starts the boxes give way
+  // to a short message; after the last session ends the countdown disappears.
+  function countdown(data) {
+    const box = document.getElementById("countdown");
+    const label = document.getElementById("countdown-label");
+    const sessions = (data.sessions || []).slice().sort(function (a, b) { return new Date(a.start) - new Date(b.start); });
+    if (!box || !sessions.length) return;
+    const first = sessions[0];
+    const last = sessions[sessions.length - 1];
+    const startAt = new Date(first.start).getTime();
+    const endAt = last.end ? new Date(last.end).getTime() : new Date(last.start).getTime() + 30 * 60000;
+    label.textContent = "Check-in opens " + time.format(new Date(first.start)).replace(/[\u202f\u00a0]/g, " ");
+    const nums = {};
+    box.querySelectorAll("[data-unit]").forEach(function (n) { nums[n.getAttribute("data-unit")] = n; });
+
+    function set(unit, value, one, many) {
+      nums[unit].textContent = String(value);
+      nums[unit].nextElementSibling.textContent = value === 1 ? one : many;
+    }
+
+    function tick() {
+      const now = Date.now();
+      if (now >= endAt) { box.hidden = true; clearInterval(timer); return; }
+      if (now >= startAt) {
+        box.classList.add("is-live");
+        label.textContent = "Check-in is open · See you inside";
+        return;
+      }
+      const left = Math.ceil((startAt - now) / 60000);
+      set("d", Math.floor(left / 1440), "Day", "Days");
+      set("h", Math.floor((left % 1440) / 60), "Hour", "Hours");
+      set("m", left % 60, "Minute", "Minutes");
+    }
+
+    const timer = setInterval(tick, 30000);
+    tick();
+  }
 
   /* ---------- Click-to-play YouTube ---------- */
 
