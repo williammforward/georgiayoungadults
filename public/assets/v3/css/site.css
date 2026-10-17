@@ -538,6 +538,7 @@ button.card:active { scale: .985; }
 .banner__link {
   flex: 1;
   min-width: 0;
+  min-height: 44px;
   display: block;
   padding: 10px 2px 10px 16px;
   color: inherit;
