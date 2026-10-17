@@ -4,33 +4,35 @@ Mobile-first event companion for the WITH conference (georgiayoungadults.com), d
 
 Read `BRAND.md` (look and feel) and `SITE-SPEC.md` (pages and behavior) before changing anything.
 
-## Versions
+## The live site
 
-The site is built in numbered versions. Each version has five pages and its own copy of the CSS and JS, and links only to its own pages.
+**The site is live. Edit the official pages in place. Never break /, the badge QR destination.**
 
-| Page | Version 1 (frozen) | Version 2 (frozen) | Version 3 (final, edited in place) |
-|---|---|---|---|
-| Home | `/home-version1/` | `/home-version2/` | `/home-version3/` |
-| Schedule | `/schedule-version1/` | `/schedule-version2/` | `/schedule-version3/` |
-| Breakouts | `/breakouts-version1/` | `/breakouts-version2/` | `/breakouts-version3/` |
-| Map | `/map-version1/` | `/map-version2/` | `/map-version3/` |
-| Resources | `/resources-version1/` | `/resources-version2/` | `/resources-version3/` |
+| Page | URL |
+|---|---|
+| Home | `/` (the badge QR code points here) |
+| Schedule | `/schedule/` |
+| Breakouts | `/breakouts/` (detail `?b=<id>`) |
+| Map | `/map/` (room `?room=<id>`) |
+| Resources | `/resources/` |
+| Directions (hidden one-off) | `/directions/` |
 
-Version 3 is the final working version: edit it in place, and never create new versions or archives unless explicitly asked. Versions 1 and 2 stay live and untouched.
+The official pages are the former version 3. Versions 1 and 2 (`/home-version1/` … `/resources-version2/`) stay live, hidden (`noindex`) and untouched. Old version 3 addresses, `/home` and `/resource` redirect to the official pages (see `public/_redirects`), keeping query strings.
 
 ## Folder structure
 
 - `public/` — everything served by the Worker (the `assets.directory` in `wrangler.jsonc`). Plain HTML, CSS and JavaScript; no build step.
-  - `_redirects` — currently empty. (It used to send `/` to the registration site.)
+  - `_redirects` — redirects from old addresses to the official pages. Never add one for `/`.
   - `_headers` — caching rules (see below).
-  - `index.html` — the temporary registration homepage at `/`, a restyled copy of georgiayouthmin.org/young-adult-conference. Its own files are in `register/` (CSS and JS) and `assets/register/` (photos). Register buttons go to the Elexio form. Marked `noindex` with a canonical link to the original page.
+  - `index.html`, `schedule/`, `breakouts/`, `map/`, `resources/` — the five official pages. Thin HTML shells; content is rendered from the data files.
+  - `directions/` — the hidden one-off directions page (its own CSS, JS and map image). It loads only the shared clock, never the guide's nav, banner or splash, and never touches the splash flag.
   - `favicon.ico`, `site.webmanifest`, `assets/favicon-32.png`, `assets/apple-touch-icon.png`, `assets/icon-192.png`, `assets/icon-512.png` — icons, made from `assets/new-favicon.jpg`.
   - `assets/conferenceguide-1200x630.jpg` — the 1200×630 link-preview image used on every page (cropped from `conferenceguide.jpg`).
-  - `<page>-versionN/index.html` — thin HTML shells, all marked `noindex`. Content is rendered from the data files.
+  - `<page>-version1/`, `<page>-version2/` — frozen earlier versions, `noindex`.
   - `data/schedule.json` — event, sessions, breakouts and rooms. Times use full ISO 8601 with the Eastern offset (e.g. `2026-10-17T10:00:00-04:00`). Shared by every version.
   - `data/resources.json` — the Resources page content. Shared by every version.
   - `assets/vN/css/site.css` — that version's one shared stylesheet.
-  - `assets/vN/js/site.js` — that version's shared script: `ROUTES`, the clock, data loading, nav and live banner. Plus one small script per page.
+  - `assets/v3/js/clock.js` — the shared clock (Eastern time, `?now=` test mode). `assets/v3/js/site.js` — `ROUTES`, data loading, nav and live banner. Plus one small script per page.
   - `assets/vN/img/` (version 2 on) — phone-sized and full-size WebP copies of the background and lockup. `assets/vN/map.svg` — the map, with room ids matching `schedule.json`.
   - `assets/*.jpg`, `*.png`, `hero-*.webp`, `map.svg` — the original artwork. Never edited; version 1 loads these directly.
 - `wrangler.jsonc` — Cloudflare Workers configuration.
@@ -54,17 +56,16 @@ Edit `public/data/schedule.json` or `public/data/resources.json` and push. Nothi
 
 `public/_headers` tells phones how long to keep files:
 
-- Versions 1 and 2 (`/assets/v1/`, `/assets/v2/`) are frozen and kept for a year.
-- Version 3's CSS and JS are re-checked every 5 minutes. After changing one, bump the `?v=` number on its URL in all five version 3 pages so phones pick it up at once. Its images are kept for a year (new image, new file name).
-- `/data/*.json` is kept for one minute.
-- Pages are re-checked on every visit.
+- The official pages and `/directions/` are re-checked on every visit, and `/data/*.json` is kept for one minute, so fixes show up fast.
+- CSS, JS, images and video are kept for a year. After editing a CSS or JS file, bump the `?v=` number on its URL in every page that loads it.
+- Versions 1 and 2 (`/assets/v1/`, `/assets/v2/`) are frozen.
 
 ## Testing as if it's conference day
 
 Add `?now=` to any page URL to fake the clock (read as Eastern time). It carries through every internal link.
 
 ```
-/home-version3/?now=2026-10-17T11:20
+/?now=2026-10-17T11:20
 ```
 
 ## Local preview
@@ -76,10 +77,3 @@ python3 -m http.server 8787 --directory public
 ```
 
 The `/` redirect and the caching rules only apply on Cloudflare, not locally.
-
-## Launch day
-
-1. Remove the temporary registration page: `public/index.html`, `public/register/` and `public/assets/register/`.
-2. Change the `ROUTES` object at the top of version 3's `site.js` to the launch URLs.
-3. Move version 3's page folders to their launch paths (Home becomes `public/index.html`).
-4. Remove `<meta name="robots" content="noindex">` from each page.

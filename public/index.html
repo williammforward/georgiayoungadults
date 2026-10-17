@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="robots" content="noindex">
 <meta name="theme-color" content="#2F4A5A">
-<title>Register · WITH · Georgia Young Adult Conference</title>
-<meta name="description" content="Georgia Young Adult Conference, October 17, 2026 at Evangel Church, Columbus, GA. Register now.">
-<link rel="canonical" href="https://www.georgiayouthmin.org/young-adult-conference">
+<title>WITH · Georgia Young Adult Conference</title>
+<link rel="canonical" href="https://georgiayoungadults.com/">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
@@ -25,107 +23,133 @@
 <meta name="twitter:title" content="WITH · Georgia Young Adult Conference">
 <meta name="twitter:description" content="October 17, 2026 at Evangel Church, Columbus, GA.">
 <meta name="twitter:image" content="https://georgiayoungadults.com/assets/conferenceguide-1200x630.jpg">
+<!-- Critical CSS: the splash paints from this alone; the page waits for its own stylesheet. -->
+<style>
+html{background:#2F4A5A}
+body{margin:0}
+/* The page shows once its own stylesheet has loaded. */
+html:not(.is-ready) body>:not(.splash){visibility:hidden}
+/* ---- Splash (first page opened in a tab) ---- */
+.splash{display:none}
+html.splash-on{background:#000}
+html.splash-on body>:not(.splash){opacity:0}
+html.splash-out body>:not(.splash){opacity:1;transition:opacity calc(var(--sp-out,1200ms)*.55) cubic-bezier(.22,.61,.36,1)}
+html.splash-on .splash{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1000;display:block;overflow:hidden;background:#000;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+/* Sized to the full width (a few pixels of overhang at most) so the baked-in text is never cropped;
+   on taller screens the top and bottom edges feather into the black. */
+.splash__media{position:absolute;left:50%;top:50%;width:min(56.25vh,106vw);width:min(56.25dvh,106vw);aspect-ratio:9/16;transform:translate(-50%,-50%);object-fit:cover;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 9%,#000 91%,transparent 100%),linear-gradient(to right,transparent 0,#000 2.5%,#000 97.5%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0,#000 9%,#000 91%,transparent 100%),linear-gradient(to right,transparent 0,#000 2.5%,#000 97.5%,transparent 100%);mask-composite:intersect}
+.splash__video{background:#000}
+.splash__fallback{position:absolute;top:0;right:0;bottom:0;left:0;display:none;background:#000}
+.splash__fallback::before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;background:url("/assets/v3/img/bg-750.webp") 50% 50%/cover no-repeat;filter:saturate(.5) brightness(.3)}
+.splash.is-fallback .splash__fallback{display:block}
+.splash.is-fallback .splash__video{display:none}
+.splash__text{opacity:0;transition:opacity .9s cubic-bezier(.22,.61,.36,1)}
+.splash__text.is-in{opacity:1}
+html.splash-out .splash{animation:sp-out var(--sp-out,1200ms) cubic-bezier(.22,.61,.36,1) both}
+@keyframes sp-out{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.02)}}
+@keyframes sp-fade{from{opacity:1}to{opacity:0}}
+@media (prefers-reduced-motion:reduce){
+.splash__text{transition:none}
+html.splash-out .splash{animation:sp-fade var(--sp-out,600ms) ease both}
+html.splash-out body>:not(.splash){transition-timing-function:ease}
+}
+</style>
 <link rel="preconnect" href="https://use.typekit.net">
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
 <link rel="preconnect" href="https://p.typekit.net">
-<link rel="stylesheet" href="https://use.typekit.net/riq0xse.css" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://use.typekit.net/riq0xse.css"></noscript>
-<link rel="stylesheet" href="/register/register.css?v=4">
+<link rel="stylesheet" id="font-css" href="https://use.typekit.net/riq0xse.css" media="print" onload="this.media='all'">
+<script>
+(function(){
+var d=document.documentElement,api={active:false,ready:function(){},start:function(){}};window.WITH_SPLASH=api;
+window.addEventListener("load",function(){setTimeout(function(){d.classList.add("is-ready")},1500)});
+var show=true;try{if(sessionStorage.getItem("with.v3.splash"))show=false;else sessionStorage.setItem("with.v3.splash","1")}catch(e){show=true}
+if(!show)return;
+api.active=true;d.classList.add("splash-on");
+var pl=document.createElement("link");pl.rel="preload";pl.as="image";pl.href="/assets/v3/img/welcome-text-720.webp";pl.setAttribute("fetchpriority","high");document.head.appendChild(pl);
+var reduce=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches),isReady=false,doneAt=Infinity,gone=false,mode="";
+function now(){return performance.now()}
+function leave(ms){if(gone)return;gone=true;d.style.setProperty("--sp-out",ms+"ms");d.classList.add("splash-out");
+var s=document.getElementById("splash"),v=s&&s.querySelector("video");
+setTimeout(function(){if(v){try{v.pause()}catch(e){}}if(s&&s.parentNode)s.parentNode.removeChild(s);d.classList.remove("splash-on","splash-out");d.style.removeProperty("--sp-out")},ms+80)}
+function settle(){if(isReady&&now()>=doneAt)leave(reduce?600:1200)}
+api.ready=function(){isReady=true;settle()};
+setTimeout(function(){leave(reduce?600:1200)},Math.max(2500,8000-now()));
+function skip(){if(!gone)leave(600)}
+document.addEventListener("pointerdown",function(e){if(e.target&&e.target.closest&&e.target.closest(".splash"))skip()},true);
+document.addEventListener("keydown",skip,true);
+api.start=function(){
+var s=document.getElementById("splash");if(!s)return;
+var v=s.querySelector("video"),img=s.querySelector(".splash__text");
+img.onload=function(){if(mode==="fallback")img.classList.add("is-in")};img.src=img.getAttribute("data-src");
+function fallback(hold){if(mode==="fallback")return;mode="fallback";
+if(v){try{v.pause()}catch(e){}v.removeAttribute("src");try{v.load()}catch(e){}}
+s.classList.add("is-fallback");
+if(img.complete&&img.naturalWidth)img.classList.add("is-in");
+doneAt=now()+hold;setTimeout(settle,hold+20)}
+if(reduce||!v||!v.play){fallback(reduce?1500:3300);return}
+v.muted=true;v.defaultMuted=true;v.playsInline=true;v.poster=v.getAttribute("data-poster");v.src=v.getAttribute("data-src");
+v.addEventListener("playing",function(){if(!mode)mode="video"});
+v.addEventListener("ended",function(){if(mode==="video"){doneAt=now();settle()}});
+v.addEventListener("error",function(){if(mode!=="video")fallback(3300)});
+var p;try{p=v.play()}catch(e){fallback(3300)}
+if(p&&p.catch)p.catch(function(){if(mode!=="video")fallback(3300)});
+setTimeout(function(){if(!mode)fallback(3300)},1000);
+};
+})();
+</script>
 <link rel="preload" as="image" type="image/webp" media="(max-width: 700px)" imagesrcset="/assets/v3/img/bg-750.webp 750w, /assets/v3/img/bg-900.webp 900w" imagesizes="100vw" fetchpriority="high">
-<link rel="preload" as="image" type="image/webp" imagesrcset="/assets/v3/img/lockup-750.webp 750w, /assets/v3/img/lockup-1080.webp 1080w" imagesizes="(max-width: 480px) 100vw, 480px" fetchpriority="high">
-<script src="/register/register.js?v=4" defer></script>
+<link rel="preload" as="image" type="image/webp" media="(min-width: 701px)" href="/assets/v3/img/bg-1080.webp" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" imagesrcset="/assets/v3/img/lockup-750.webp 750w, /assets/v3/img/lockup-1080.webp 1080w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="style" href="/assets/v3/css/site.css?v=5">
+<link rel="stylesheet" id="site-css" href="/assets/v3/css/site.css?v=5" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://use.typekit.net/riq0xse.css"><link rel="stylesheet" href="/assets/v3/css/site.css?v=5"><style>html:not(.is-ready) body>:not(.splash){visibility:visible}</style></noscript>
+<link rel="preload" href="/data/schedule.json" as="fetch" crossorigin>
+<script src="/assets/v3/js/clock.js?v=5" defer></script>
+<script src="/assets/v3/js/site.js?v=5" defer></script>
+<script src="/assets/v3/js/home.js?v=5" defer></script>
 </head>
-<body>
+<body data-page="home">
 
-<!-- Temporary registration page until launch. Its own files: public/register/ and public/assets/register/. -->
-<div class="bg" aria-hidden="true">
-  <picture>
-    <source media="(max-width: 700px)" type="image/webp" srcset="/assets/v3/img/bg-750.webp 750w, /assets/v3/img/bg-900.webp 900w" sizes="100vw">
-    <source type="image/webp" srcset="/assets/v3/img/bg-1080.webp">
-    <img src="/assets/v3/img/bg-fallback.jpg" alt="" decoding="async">
-  </picture>
+<!-- Splash: plays on the first page opened in a tab. Styled and timed by the inline CSS and script in the head. -->
+<div class="splash" id="splash" aria-hidden="true">
+  <video class="splash__media splash__video" autoplay muted playsinline preload="auto" disableremoteplayback data-src="/assets/v3/video/welcome-splash-720.mp4" data-poster="/assets/v3/video/welcome-splash-poster.jpg"></video>
+  <div class="splash__fallback"><img class="splash__media splash__text" data-src="/assets/v3/img/welcome-text-720.webp" alt=""></div>
+</div>
+<script>window.WITH_SPLASH.start()</script>
+
+<div class="bg bg--home" aria-hidden="true">
+  <div class="bg__drift">
+    <picture>
+      <source media="(max-width: 700px)" type="image/webp" srcset="/assets/v3/img/bg-750.webp 750w, /assets/v3/img/bg-900.webp 900w" sizes="100vw">
+      <source type="image/webp" srcset="/assets/v3/img/bg-1080.webp">
+      <img class="bg__fill" src="/assets/v3/img/bg-fallback.jpg" alt="" decoding="async">
+    </picture>
+    <picture>
+      <source media="(max-width: 700px)" type="image/webp" srcset="/assets/v3/img/bg-750.webp 750w, /assets/v3/img/bg-900.webp 900w" sizes="100vw">
+      <source type="image/webp" srcset="/assets/v3/img/bg-1080.webp">
+      <img class="bg__art" id="bg-photo" src="/assets/v3/img/bg-fallback.jpg" alt="" decoding="async">
+    </picture>
+    <picture>
+      <source type="image/webp" srcset="/assets/v3/img/lockup-750.webp 750w, /assets/v3/img/lockup-1080.webp 1080w" sizes="100vw">
+      <img class="bg__art bg__words" id="bg-words" src="/assets/with-lockup-white.png" alt="" decoding="async">
+    </picture>
+  </div>
+  <div class="bg__shade"></div>
 </div>
 
 <main class="page">
   <header class="hero">
-    <h1 class="sr-only">WITH: Georgia Young Adult Conference 2026</h1>
-    <div class="hero__frame"><picture>
-      <source type="image/webp" srcset="/assets/v3/img/lockup-750.webp 750w, /assets/v3/img/lockup-1080.webp 1080w" sizes="(max-width: 480px) 100vw, 480px">
-      <img class="hero__lockup" src="/assets/with-lockup-white.png" alt="" decoding="async">
-    </picture></div>
+    <h1 class="sr-only">WITH: Georgia Young Adult Conference</h1>
   </header>
-
-  <section class="card card--sun" aria-labelledby="when">
-    <div class="countdown" id="countdown">
-      <div class="pills"><span class="pill" id="countdown-label">Check-in opens 9:15 AM</span></div>
-      <div class="count" id="countdown-units" role="timer" aria-live="off">
-        <div class="count__unit"><span class="count__num" data-unit="d">–</span><span class="count__label">Days</span></div>
-        <div class="count__unit"><span class="count__num" data-unit="h">–</span><span class="count__label">Hours</span></div>
-        <div class="count__unit"><span class="count__num" data-unit="m">–</span><span class="count__label">Minutes</span></div>
-      </div>
-    </div>
-    <h2 class="t-big" id="when">October 17, 2026</h2>
-    <div class="pills"><span class="pill">Evangel Church · 5350 Veterans Pkwy, Columbus, GA 31904</span></div>
-    <a class="btn" href="https://www.elexiogiving.com/App/Form/5ae7046a-38d3-45ab-b867-4973138177d0"><span>Register now</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span></a>
-  </section>
-
-  <section class="card card--sky-deep" aria-labelledby="about">
-    <figure class="photo"><img src="/assets/register/stage-720.webp" alt="Worship on stage at a Georgia Youth Ministries event" width="720" height="540" loading="lazy" decoding="async"></figure>
-    <div class="pills"><span class="pill pill--white">About the conference</span></div>
-    <h2 class="t-big" id="about">The time is now</h2>
-    <p class="t-body">Each year we gather together to be WITH Jesus—to be equipped, to connect, and to encounter Him in a fresh way. But the gathering is not the destination. It’s the anchor. Just as Jesus did with His disciples, He calls us to first be with Him, and then to be sent out to live with Him in our everyday lives.</p>
-    <blockquote class="verse"><p class="t-body">“He appointed twelve that they might be with him and that he might send them out…”</p><cite>Mark 3:14</cite></blockquote>
-    <p class="t-body">This conference is a yearly moment where we come together to sit with Jesus again, to be renewed in His presence, and to be reminded that our calling is not just to gather, but to go. We are sent back into our homes, our workplaces, our families, and our communities, not to leave Jesus behind, but to live with Him there. The life we receive in His presence is meant to be carried into the ordinary places of our lives.</p>
-    <p class="lead">We gather to be with Him. And then we are sent to live with Him.</p>
-  </section>
-
-  <section class="card card--field" aria-labelledby="speaker">
-    <div class="video" data-yt="2eP8CAmcMuI" data-start="88"><button class="video__start" type="button" aria-label="Play video: Josh Wellborn, Authenticity is at a premium"><img src="/assets/register/video-wellborn.webp" alt="" width="960" height="540" loading="lazy" decoding="async"><span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M8.5 5.8v12.4a.9.9 0 0 0 1.37.77l9.9-6.2a.9.9 0 0 0 0-1.54l-9.9-6.2a.9.9 0 0 0-1.37.77z"/></svg></span></button></div>
-    <div class="pills"><span class="pill pill--white">Speaker</span></div>
-    <h2 class="t-big" id="speaker">Josh Wellborn</h2>
-    <p class="role">Assemblies of God Young Adult Ministries Director</p>
-  </section>
-
-  <section class="card card--sky" aria-labelledby="worship">
-    <div class="video" data-yt="x4j4ISXGUmU"><button class="video__start" type="button" aria-label="Play video: David Rosenblum leading worship, I Sing Praises"><img src="/assets/register/video-rosenblum.webp" alt="" width="960" height="540" loading="lazy" decoding="async"><span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M8.5 5.8v12.4a.9.9 0 0 0 1.37.77l9.9-6.2a.9.9 0 0 0 0-1.54l-9.9-6.2a.9.9 0 0 0-1.37.77z"/></svg></span></button></div>
-    <div class="pills"><span class="pill pill--white">Worship</span></div>
-    <h2 class="t-big" id="worship">David Rosenblum</h2>
-    <p class="role">U.S. Missionary to Teen Challenge<br>Worship Leader &amp; Worship Leader Coach</p>
-    <a class="btn" href="https://davidrosenblum.org/" target="_blank" rel="noopener noreferrer"><span>Visit his website</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span><span class="sr-only"> (opens in a new tab)</span></a>
-  </section>
-
-  <section class="card card--field-deep" aria-labelledby="schedule-title">
-    <div class="pills"><span class="pill pill--white">Saturday, October 17</span></div>
-    <h2 class="t-big" id="schedule-title">Schedule</h2>
-    <ul class="schedule" id="schedule" aria-live="polite"><li><span class="schedule__note">Loading the schedule…</span></li></ul>
-  </section>
-
-  <section class="card card--sun" aria-labelledby="tickets">
-    <div class="pills"><span class="pill">Lunch included</span></div>
-    <h2 class="t-big" id="tickets">Get your tickets</h2>
-    <div class="price"><span class="price__num">$60</span><span class="price__label">Late registration<br>through October 16</span></div>
-    <p class="t-body">Tickets are also available at the door on October 17.</p>
-    <a class="btn" href="https://www.elexiogiving.com/App/Form/5ae7046a-38d3-45ab-b867-4973138177d0"><span>Purchase tickets</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span></a>
-  </section>
-
-
-  <section class="card card--sky-deep" aria-labelledby="promo">
-    <div class="pills"><span class="pill pill--white">Promo materials</span></div>
-    <h2 class="t-head" id="promo">Spread the word</h2>
-    <p class="t-body">Download our media kit and promote Georgia Young Adult Conference to your community.</p>
-    <a class="btn" href="https://drive.google.com/drive/folders/1URbUAZTr17FsIyhsRDOTLvDWiEnbJ4x1?usp=drive_link" target="_blank" rel="noopener noreferrer"><span>Download</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></span><span class="sr-only"> (opens in a new tab)</span></a>
-  </section>
-
-  <footer class="footer">
-    <p class="footer__name">Georgia Youth Ministries</p>
-    <p>PO Box 28470<br>Macon, GA 31221<br><a href="tel:+14784055901,124">(478) 405-5901 ext. 124</a></p>
-    <div class="footer__links">
-      <a href="https://www.instagram.com/georgiayouthmin/" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="https://www.facebook.com/profile.php?id=100068628033027" target="_blank" rel="noopener noreferrer">Facebook</a>
-      <a href="https://www.georgiayouthmin.org">georgiayouthmin.org</a>
-    </div>
-  </footer>
+  <div class="deck" id="deck"></div>
 </main>
+
+<nav class="nav" aria-label="Main">
+  <a class="nav__item" data-route="home" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 11.2 12 4l8 7.2V19a1.5 1.5 0 0 1-1.5 1.5h-3.8v-5.6H9.3v5.6H5.5A1.5 1.5 0 0 1 4 19z"/></svg><span>Home</span></a>
+  <a class="nav__item" data-route="schedule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.8" y="5.2" width="16.4" height="15" rx="3"/><path d="M3.8 10h16.4M8.2 3.2v3.6M15.8 3.2v3.6"/></svg><span>Schedule</span></a>
+  <a class="nav__item" data-route="map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s6.6-5.6 6.6-10.8A6.6 6.6 0 0 0 5.4 10.2C5.4 15.4 12 21 12 21z"/><circle cx="12" cy="10.2" r="2.4"/></svg><span>Map</span></a>
+  <a class="nav__item" data-route="resources"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 5.2A1.7 1.7 0 0 1 6.7 3.5H19v14.2H6.9A1.9 1.9 0 0 0 5 19.6z"/><path d="M5 19.6a1.9 1.9 0 0 0 1.9 1.9H19v-3.8M9 8.2h6"/></svg><span>Resources</span></a>
+</nav>
 
 </body>
 </html>

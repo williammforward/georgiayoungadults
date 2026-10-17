@@ -1,0 +1,15 @@
+# Old addresses for the guide -> the official pages. Query strings (?b=, ?room=, ?now=) carry over.
+/home                 /                302
+/home/                /                302
+/home-version3        /                302
+/home-version3/       /                302
+/schedule-version3    /schedule/       302
+/schedule-version3/   /schedule/       302
+/breakouts-version3   /breakouts/      302
+/breakouts-version3/  /breakouts/      302
+/map-version3         /map/            302
+/map-version3/        /map/            302
+/resources-version3   /resources/      302
+/resources-version3/  /resources/      302
+/resource             /resources/      302
+/resource/            /resources/      302

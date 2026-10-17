@@ -16,30 +16,31 @@ A mobile-first event companion for the Georgia Young Adult Conference (Saturday,
 
 - Plain static site: HTML, CSS, vanilla JavaScript. No frameworks, no build step, no server code.
 - Everything lives in `/public`. Data comes from `/public/data/schedule.json` and `/public/data/resources.json`. Pages render from the data; never hardcode session info in HTML.
-- **Never edit `public/_redirects`.** The homepage `/` redirects to registration until launch.
-- Every build page gets `<meta name="robots" content="noindex">` until launch.
+- `public/_redirects` only holds redirects from old addresses to the official pages. Never add one for `/`.
+- The official pages are indexable. Version 1 and 2 pages and `/directions/` stay `noindex`.
 - Fonts: the Adobe link from BRAND.md on every page.
 - One shared stylesheet (`/assets/css/site.css`) and one shared script (`/assets/js/site.js`), plus small per-page scripts if needed.
 
 ---
 
-## 3. Pages and URLs (build phase)
+## 3. Pages and URLs
 
-| Page | Build URL | Launch URL |
-|---|---|---|
-| Home | `/sitebuild1/` | `/` |
-| Schedule | `/sitebuild2/` | `/schedule/` |
-| Breakouts (list + detail) | `/sitebuild3/` (detail: `/sitebuild3/?b=<id>`) | `/breakouts/` |
-| Map | `/sitebuild4/` (room: `/sitebuild4/?room=<id>`) | `/map/` |
-| Resources | `/sitebuild5/` | `/resources/` |
+**The site is live. Edit the official pages in place. Never break /, the badge QR destination.**
 
-**All internal links must come from one routes object** in `site.js`:
+| Page | URL |
+|---|---|
+| Home | `/` |
+| Schedule | `/schedule/` |
+| Breakouts (list + detail) | `/breakouts/` (detail: `/breakouts/?b=<id>`) |
+| Map | `/map/` (room: `/map/?room=<id>`) |
+| Resources | `/resources/` |
+| Directions (hidden one-off, no links to the guide) | `/directions/` |
+
+**All internal links must come from one routes object** in `public/assets/v3/js/site.js`:
 ```js
-const ROUTES = { home: "/sitebuild1/", schedule: "/sitebuild2/", breakouts: "/sitebuild3/", map: "/sitebuild4/", resources: "/sitebuild5/" };
+const ROUTES = { home: "/", schedule: "/schedule/", breakouts: "/breakouts/", map: "/map/", resources: "/resources/" };
 ```
-Never hardcode a page URL anywhere else. On launch day, we change this one object, move the folders, and delete the redirect line.
-
----
+Never hardcode a page URL anywhere else. Old build addresses (`/home-version3/` etc., `/home`, `/resource`) redirect to these in `public/_redirects`, keeping query strings.
 
 ## 4. Shared components
 

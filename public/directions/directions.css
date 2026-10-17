@@ -1,0 +1,72 @@
+/* /directions/: a standalone page. Uses the guide's brand stylesheet, no guide navigation. */
+
+.dir {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 14px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 32px);
+}
+
+.dir .t-page { font-size: clamp(34px, 10.2vw, 48px); }
+.dir .page-head { padding-top: calc(env(safe-area-inset-top, 0px) + 20px); padding-bottom: 0; }
+.dir .card { position: relative; top: auto; }
+.dir .card:first-child { margin-top: 0; }
+.dir .card:last-of-type { padding-bottom: 24px; }
+
+.dir__address { margin-top: 12px; font-size: 18px; line-height: 1.4; }
+
+.copy {
+  margin-top: 12px;
+  min-height: 36px;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.dir__label { margin-top: 0; }
+.dir__sub { margin-top: 10px; }
+
+.apps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.apps .btn { min-height: 72px; font-size: 20px; }
+
+.steps {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps li {
+  position: relative;
+  padding: 10px 0 10px 28px;
+  border-top: 2px solid rgba(30, 38, 32, .12);
+}
+
+.steps li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 19px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.dir__map {
+  margin: 16px -6px 0;
+  padding: 8px;
+  border-radius: 22px;
+  background: var(--white);
+}
+
+.dir__map img { width: 100%; height: auto; }
+
+.dir__key { margin-top: 10px; font-size: 13px; }
+
+.dir__foot { margin-top: 30px; text-align: center; font-size: 18px; }
+
+.apps + .card { margin-top: 0; }

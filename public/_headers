@@ -7,16 +7,16 @@
 /assets/v2/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Version 3 is edited in place: its code is re-checked every 5 minutes (bump ?v= to
-# push a change out at once). Its images never change.
+# Version 3 (the official site): CSS and JS are cached long and cache-busted with
+# the ?v= number on their URLs. Bump ?v= in every official page after editing one.
 /assets/v3/css/*
-  Cache-Control: public, max-age=300
+  Cache-Control: public, max-age=31536000, immutable
 
 /assets/v3/js/*
-  Cache-Control: public, max-age=300
+  Cache-Control: public, max-age=31536000, immutable
 
 /assets/v3/map.svg
-  Cache-Control: public, max-age=3600
+  Cache-Control: public, max-age=31536000, immutable
 
 /assets/v3/img/*
   Cache-Control: public, max-age=31536000, immutable
@@ -75,9 +75,31 @@
 /data/*
   Cache-Control: public, max-age=60
 
-# Temporary registration homepage (/). Code re-checked every 5 minutes; photos kept.
-/register/*
-  Cache-Control: public, max-age=300
+# Official pages: always re-checked so fixes show up at once.
+/
+  Cache-Control: public, max-age=0, must-revalidate
 
-/assets/register/*
-  Cache-Control: public, max-age=2592000
+/schedule/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/breakouts/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/map/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/resources/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/directions/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/directions/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/directions/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/directions/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+

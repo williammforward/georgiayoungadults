@@ -204,6 +204,7 @@
     function update(t) {
       const state = S.phase(data, t);
       const view = state === "before" ? before(data, t) : state === "after" ? after() : during(data, t);
+      view.body = view.body.filter(Boolean);
       const key = state + "|" + view.body.map(function (n) { return n.textContent; }).join("|");
       if (key === lastKey) return;
       lastKey = key;
