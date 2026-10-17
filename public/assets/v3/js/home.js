@@ -26,17 +26,19 @@
 
   function before(data, t) {
     const left = Math.max(0, data.doorsAt - t);
-    const weekday = S.fmtDay(data.doorsAt).split(",")[0];
+    const checkin = data.sessions[0];
+    const open = checkin && t >= checkin.startAt;
     return {
       color: "field-deep",
       href: S.link("schedule"),
       body: [
         head(S.pill("Doors open " + S.fmtTime(data.doorsAt), "white")),
-        h("h2", { class: "t-card card__title" }, "See you " + weekday),
+        h("h2", { class: "t-card card__title" }, "Doors open in"),
         h("div", { class: "count" },
           unit(Math.floor(left / DAY), "Day", "Days"),
           unit(Math.floor((left % DAY) / HOUR), "Hour", "Hours"),
-          unit(Math.floor((left % HOUR) / S.MINUTE), "Minute", "Minutes"))
+          unit(Math.floor((left % HOUR) / S.MINUTE), "Minute", "Minutes")),
+        checkin ? h("p", { class: "t-body card__sub" }, open ? "Check-in & coffee are open" : "Check-in & coffee start at " + S.fmtTime(checkin.startAt)) : null
       ]
     };
   }
