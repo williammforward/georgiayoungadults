@@ -87,12 +87,14 @@ s.classList.add("is-fallback");
 if(img.complete&&img.naturalWidth)img.classList.add("is-in");
 doneAt=now()+hold;setTimeout(settle,hold+20)}
 if(reduce||!v||!v.play){fallback(reduce?1500:3300);return}
-v.muted=true;v.defaultMuted=true;v.playsInline=true;v.poster=v.getAttribute("data-poster");v.src=v.getAttribute("data-src");
+v.muted=true;v.defaultMuted=true;v.playsInline=true;v.poster=v.getAttribute("data-poster");
 v.addEventListener("playing",function(){if(!mode)mode="video"});
 v.addEventListener("ended",function(){if(mode==="video"){doneAt=now();settle()}});
 v.addEventListener("error",function(){if(mode!=="video")fallback(3300)});
-var p;try{p=v.play()}catch(e){fallback(3300)}
-if(p&&p.catch)p.catch(function(){if(mode!=="video")fallback(3300)});
+function go(url){if(mode)return;v.src=url;var p;try{p=v.play()}catch(e){fallback(3300);return}
+if(p&&p.catch)p.catch(function(){if(mode!=="video")fallback(3300)})}
+var src=v.getAttribute("data-src");
+if(window.fetch&&window.URL&&URL.createObjectURL){fetch(src).then(function(r){if(!r.ok)throw new Error(r.status);return r.blob()}).then(function(b){go(URL.createObjectURL(b))}).catch(function(){go(src)})}else{go(src)}
 setTimeout(function(){if(!mode)fallback(3300)},1000);
 };
 })();
